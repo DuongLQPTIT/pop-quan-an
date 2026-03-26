@@ -271,6 +271,22 @@ function toggleDark() {
     document.body.classList.toggle("dark");
 }
 </script>
+    <!-- Hiển thị số bàn -->
+<div id="table-info" class="table-info"></div>
+
+<script>
+  // Lấy tham số Table từ URL
+  const params = new URLSearchParams(window.location.search);
+  const tableNumber = params.get("Table");
+
+  // Hiển thị số bàn
+  if (tableNumber) {
+      document.getElementById("table-info").innerText = "👉 Bạn đang ngồi bàn số " + tableNumber;
+  } else {
+      document.getElementById("table-info").innerText = "⚠️ Không xác định được số bàn!";
+  }
+</script>
+
 
 </body>
 </html>
