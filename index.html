@@ -94,7 +94,6 @@
         /* FOOTER ĐỊA CHỈ */
         .site-footer { background: #001a33; color: white; text-align: center; padding: 30px 20px; margin-top: 50px; font-size: 14px; line-height: 1.6; }
         body.dark .site-footer { background: #000; border-top: 1px solid #333; }
-        .footer-content b { color: #d35400; }
 
         @media (max-width: 768px) {
             .main-container { flex-direction: column; }
@@ -375,16 +374,15 @@
         filterMenu('main', document.querySelector('.top-menu-item'));
     }
 
-    // --- KHỞI TẠO VÀ LẤY SỐ BÀN TỪ URL ---
+    // --- KHỞI TẠO VÀ XỬ LÝ SỐ BÀN ---
     window.onload = function() {
         const params = new URLSearchParams(window.location.search);
         const tableNumber = params.get("Table");
         const tableDisplay = document.getElementById("table-info");
         
+        // Nếu có số bàn trên link thì hiện "BÀN XX", nếu không thì để trống hoàn toàn
         if (tableNumber) {
-            tableDisplay.innerText = "👉 BÀN " + tableNumber;
-        } else {
-            tableDisplay.innerText = "👉 MANG VỀ";
+            tableDisplay.innerText = "BÀN " + tableNumber;
         }
         renderMenu(menuData.filter(m => m.type === 'main'));
         renderCart();
