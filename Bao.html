@@ -606,6 +606,11 @@
     renderCart();
 
 
+  <script>
+    function toggleDark() {
+      document.body.classList.toggle("dark");
+    }
+
     // Lấy tham số Table từ URL và hiển thị
     window.onload = function() {
       const params = new URLSearchParams(window.location.search);
@@ -614,6 +619,7 @@
         document.getElementById("table-info").innerText = "👉 BÀN " + tableNumber;
       }
     };
+  </script>
 </script>
 </body>
 </html>
