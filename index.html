@@ -130,8 +130,8 @@
         <div class="cart-section" id="cart-list"></div>
         
         <div class="takeaway-area">
-            <label style="font-size: 11px; font-weight: bold; color: #d35400;">Ghi chú mang về / khác:</label>
-            <textarea id="global-note" rows="2" placeholder="VD: Lấy thêm hộp, không lấy đũa..."></textarea>
+            <label style="font-size: 11px; font-weight: bold; color: #d35400;">Ghi chú  / khác:</label>
+            <textarea id="global-note" rows="2" placeholder="VD: quý khách mua mang về ghi chú tại đây..."></textarea>
         </div>
 
         <footer class="footer-payment">
@@ -308,7 +308,7 @@
     window.onload = function() {
         const params = new URLSearchParams(window.location.search);
         tableNo = params.get("Table");
-        if (tableNo) document.getElementById("table-info").innerText = "👉 BÀN " + tableNo;
+        if (tableNo) document.getElementById("table-info").innerText = " BÀN " + tableNo;
         filterMenu('main', document.querySelector('.top-menu-item'));
     };
 </script>
