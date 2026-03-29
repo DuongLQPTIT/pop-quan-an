@@ -604,6 +604,16 @@
     // Khởi tạo ban đầu
     renderMenu(menuData.filter(m => m.type === 'main'));
     renderCart();
+
+
+    // Lấy tham số Table từ URL và hiển thị
+    window.onload = function() {
+      const params = new URLSearchParams(window.location.search);
+      const tableNumber = params.get("Table");
+      if (tableNumber) {
+        document.getElementById("table-info").innerText = "👉 BÀN " + tableNumber;
+      }
+    };
 </script>
 </body>
 </html>
