@@ -92,8 +92,9 @@
         @keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
 
         /* FOOTER ĐỊA CHỈ */
-        .site-footer { background: #001a33; color: white; text-align: center; padding: 20px; margin-top: 30px; font-size: 14px; }
+        .site-footer { background: #001a33; color: white; text-align: center; padding: 30px 20px; margin-top: 50px; font-size: 14px; line-height: 1.6; }
         body.dark .site-footer { background: #000; border-top: 1px solid #333; }
+        .footer-content b { color: #d35400; }
 
         @media (max-width: 768px) {
             .main-container { flex-direction: column; }
@@ -109,9 +110,7 @@
 
 <header class="header">
     <div class="left"><img class="logo" src="https://i.pinimg.com/1200x/4b/6b/aa/4b6baaa79ae9010a740249b998c3587b.jpg"></div>
-    
     <div id="table-info"></div>
-
     <div class="right">
         <div class="icon" onclick="toggleDark()">🌓</div>
         <img class="avatar" src="https://i.pravatar.cc/100">
@@ -218,7 +217,7 @@
         { id: 209, type: 'drink', name: "COCACOLA", price: 15000, img: "https://www.coca-cola.com/content/dam/onexp/vn/vi/brands/coca-cola/vn-coca-cola-zero.png" },
         { id: 210, type: 'drink', name: "SPRITE", price: 15000, img: "https://maltco.vn/media/catalog/product/cache/e23dd0f7bd71f6870bbc835b86d5d59e/s/p/sprite_softdrink.webp" },
         { id: 301, type: 'dessert', name: "CHÈ KHÚC BẠCH", price: 25000, img: "https://cdn.tgdd.vn/2021/10/CookDish/che-khuc-bach-la-gi-che-khuc-bach-lam-tu-gi-nguyen-lieu-lam-avt-1200x676.jpg" },
-        { id: 302, type: 'dessert', name: "CHÈ DỪA DẦM", price: 25000, img: "https://cdn.mediamart.vn/images/news/vao-bp-hc-cach-nu-che-da-dm-hi-phong-ngon-ngt-ngay_028720f1.jpg" },
+        { id: 302, type: 'dessert', name: "DỪA DẦM", price: 25000, img: "https://cdn.mediamart.vn/images/news/vao-bp-hc-cach-nu-che-da-dm-hi-phong-ngon-ngt-ngay_028720f1.jpg" },
         { id: 303, type: 'dessert', name: "HOA QUẢ THEO MÙA", price: 35000, img: "https://file.hstatic.net/200000333181/article/264191096-h-696x476_9b7c0dacaa144901b0f236dd8b023b0d.jpg" },
         { id: 304, type: 'dessert', name: "SỮA CHUA NẾP CẨM ", price: 20000, img: "https://beptruong.edu.vn/wp-content/uploads/2019/03/sua-chua-nep-cam.jpg" },
         { id: 305, type: 'dessert', name: "KEM TƯƠI", price: 20000, img: "https://dungcunhahang.com/wp-content/uploads/2025/01/Ly-Kem-800x800-3.png" },
@@ -295,7 +294,10 @@
     }
 
     function clearCart() {
-        if(confirm("Bạn muốn xóa toàn bộ giỏ hàng?")) { cart = []; renderCart(); }
+        if(confirm("Bạn muốn xóa toàn bộ giỏ hàng?")) {
+            cart = [];
+            renderCart();
+        }
     }
 
     function renderCart() {
@@ -335,7 +337,6 @@
         document.getElementById('invoice-total').innerText = total.toLocaleString() + " VND";
         document.getElementById('acc-name').innerText = ACCOUNT_NAME;
         invoiceModal.style.display = 'flex';
-
         const qrImg = document.getElementById('qr-code');
         const qrLoading = document.getElementById('qr-loading');
         qrImg.style.display = "none";
@@ -352,7 +353,11 @@
         timerInterval = setInterval(() => {
             let m = Math.floor(t/60), s = t%60;
             display.innerText = `Mã QR hết hạn sau: ${m}:${s<10?'0':''}${s}`;
-            if (--t < 0) { clearInterval(timerInterval); display.innerText = "Mã QR đã hết hạn."; }
+            if (--t < 0) {
+                clearInterval(timerInterval);
+                display.innerText = "Mã QR đã hết hạn, vui lòng tạo lại.";
+                document.getElementById('qr-code').style.opacity = "0.2";
+            }
         }, 1000);
     }
 
@@ -363,21 +368,24 @@
 
     function closeOrderModal() {
         document.getElementById('orderModal').style.display = 'none';
-        cart = []; renderCart();
+        cart = [];
+        renderCart();
+        clearInterval(timerInterval);
         window.scrollTo({ top: 0, behavior: 'smooth' });
+        filterMenu('main', document.querySelector('.top-menu-item'));
     }
 
     // --- KHỞI TẠO VÀ LẤY SỐ BÀN TỪ URL ---
     window.onload = function() {
-        // 1. Xử lý số bàn
         const params = new URLSearchParams(window.location.search);
         const tableNumber = params.get("Table");
         const tableDisplay = document.getElementById("table-info");
+        
         if (tableNumber) {
-            tableDisplay.innerText = " BÀN " + tableNumber;
+            tableDisplay.innerText = "👉 BÀN " + tableNumber;
+        } else {
+            tableDisplay.innerText = "👉 MANG VỀ";
         }
-
-        // 2. Hiển thị Menu món chính
         renderMenu(menuData.filter(m => m.type === 'main'));
         renderCart();
     };
