@@ -96,6 +96,32 @@
             .main-container { flex-direction: column; }
             .sidebar { position: static; width: 100%; }
         }
+        /* NÚT CUỘN TRANG */
+        .scroll-buttons {
+            position: fixed;
+            right: 20px;
+            bottom: 80px; /* Nằm trên nút thanh toán một chút */
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 999;
+        }
+        .btn-scroll {
+            width: 45px;
+            height: 45px;
+            background: #d35400;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+        }
+        .btn-scroll:hover { background: #e67e22; transform: scale(1.1); }
     </style>
 </head>
 <body>
@@ -110,6 +136,7 @@
 </div>
 
 <div id="toast-container"></div>
+    
 
 <header class="header">
     <div class="left"><img class="logo" src="https://i.pinimg.com/1200x/4b/6b/aa/4b6baaa79ae9010a740249b998c3587b.jpg"></div>
@@ -121,6 +148,10 @@
 </header>
 
 <div class="banner"><img src="https://i.pinimg.com/1200x/4b/6b/aa/4b6baaa79ae9010a740249b998c3587b.jpg"></div>
+    <div class="scroll-buttons">
+    <button class="btn-scroll" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" title="Lên đầu trang">▲</button>
+    <button class="btn-scroll" onclick="window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'})" title="Xuống cuối trang">▼</button>
+</div>
 
 <main class="main-container">
     <section class="content-area">
