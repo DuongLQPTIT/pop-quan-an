@@ -8,18 +8,21 @@
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: Arial, sans-serif; background: #f4f4f4; color: #333; transition: 0.3s; overflow-y: auto; }
         body.dark { background: #121212; color: white; }
-
-     #table-info { 
-    /* Xóa các dòng absolute, left, transform cũ đi */
+#table-info { 
+    position: absolute; 
+    left: 50%; 
+    transform: translateX(-50%); 
     font-weight: bold; 
-    color: white; 
-    background: #d35400; /* Thêm nền cho nổi bật */
-    padding: 5px 12px;
-    border-radius: 15px;
-    font-size: 0.9rem;
-    white-space: nowrap;
-    margin-left: auto; /* Đây là "phép thuật" để đẩy nó về bên phải */
-    margin-right: 10px; /* Cách cái icon mặt trăng một chút */
+    color: #d35400; 
+    font-size: 1.1rem; /* Giảm nhẹ kích thước */
+    white-space: nowrap; 
+    pointer-events: none;
+    z-index: 10; /* Đảm bảo nằm trên các thành phần khác */
+}
+
+/* Ẩn bớt search khi ở màn hình cực nhỏ để không đè vào số bàn */
+@media (max-width: 400px) {
+    .header .search-container { width: 80px; }
 }
 
 
