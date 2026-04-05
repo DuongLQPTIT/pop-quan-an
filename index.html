@@ -18,6 +18,12 @@
         .avatar { width: 40px; height: 40px; border-radius: 50%; border: 2px solid #d35400; }
         .icon { width: 35px; height: 35px; border-radius: 50%; background: #f2f2f2; display: flex; align-items: center; justify-content: center; cursor: pointer; }
         body.dark .icon { background: #2a2a2a; }
+
+
+        #table-info { 
+            position: absolute; left: 50%; transform: translateX(-50%); 
+            font-weight: bold; color: #d35400; font-size: 1.2rem; white-space: nowrap; pointer-events: none;
+        }
        
         /* CẤU TRÚC SEARCH TRÊN HEADER */
         .search-container { display: flex; align-items: center; background: #f9f9f9; border: 1px solid #ddd; border-radius: 20px; padding: 5px 12px; width: 200px; transition: 0.3s; }
@@ -119,7 +125,7 @@
 
 
 <header class="header">
-    <div id="table-info"></div>
+    
     <div class="left">
         <img class="logo" src="https://raw.githubusercontent.com/DuongLQPTIT/pop-quan-an/refs/heads/main/657534962_1498221541837292_4626700409988075945_n.png">
         <!-- SEARCH ĐÃ ĐƯỢC CHUYỂN LÊN ĐÂY -->
@@ -128,6 +134,7 @@
             <span style="opacity:0.5">🔍</span>
         </div>
     </div>
+    <div id="table-info"></div>
     <div class="right">
         <div class="icon" onclick="toggleDark()">🌓</div>
         <img class="avatar" src="https://i.pravatar.cc/100">
