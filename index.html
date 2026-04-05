@@ -119,6 +119,7 @@
 
 
 <header class="header">
+    <div id="table-info"></div>
     <div class="left">
         <img class="logo" src="https://raw.githubusercontent.com/DuongLQPTIT/pop-quan-an/refs/heads/main/657534962_1498221541837292_4626700409988075945_n.png">
         <!-- SEARCH ĐÃ ĐƯỢC CHUYỂN LÊN ĐÂY -->
@@ -432,6 +433,12 @@
 
     renderMenu(menuData.filter(m => m.type === 'main'));
     renderCart();
+     window.onload = function() {
+        const params = new URLSearchParams(window.location.search);
+        tableNo = params.get("Table");
+        if (tableNo) document.getElementById("table-info").innerText = " BÀN " + tableNo;
+        filterMenu('main', document.querySelector('.top-menu-item'));
+    };
 </script>
 </body>
 </html>
