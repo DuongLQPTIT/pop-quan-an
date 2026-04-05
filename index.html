@@ -19,18 +19,30 @@
         .icon { width: 35px; height: 35px; border-radius: 50%; background: #f2f2f2; display: flex; align-items: center; justify-content: center; cursor: pointer; }
         body.dark .icon { background: #2a2a2a; }
 
-
-     #table-info { 
-    /* Xóa các dòng absolute, left, transform cũ đi */
+#table-info { 
+    /* Giữ nguyên các định dạng màu sắc của bạn */
     font-weight: bold; 
     color: white; 
-    background: #d35400; /* Thêm nền cho nổi bật */
+    background: #d35400; 
     padding: 5px 12px;
     border-radius: 15px;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     white-space: nowrap;
-    margin-left: auto; /* Đây là "phép thuật" để đẩy nó về bên phải */
-    margin-right: 10px; /* Cách cái icon mặt trăng một chút */
+
+    /* PHẦN SỬA CHÍNH: */
+    flex-shrink: 0;      /* Ngăn không cho ô tìm kiếm đè bẹp số bàn */
+    margin: 0 10px;      /* Tạo khoảng cách an toàn 10px với cả trái (search) và phải (icon) */
+    display: inline-block;
+    position: relative;  /* Đảm bảo không bị ảnh hưởng bởi các thuộc tính absolute cũ nếu có */
+}
+
+/* Fix riêng cho mobile để không bị tràn hàng */
+@media (max-width: 768px) {
+    #table-info {
+        font-size: 0.75rem;
+        padding: 3px 8px;
+        margin: 0 5px;
+    }
 }
        
         /* CẤU TRÚC SEARCH TRÊN HEADER */
