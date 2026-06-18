@@ -1,11 +1,12 @@
-<!DOCTYPE html>
+]<!DOCTYPE html>
 <html lang="vi">
-
 
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>DEMO - SMART MENU</title>
+   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
    <style>
        * {
            box-sizing: border-box;
@@ -14,7 +15,6 @@
            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif, Arial, "Helvetica Neue", sans-serif;
        }
 
-
        body {
            background: #f4f4f4;
            color: #333;
@@ -22,12 +22,10 @@
            overflow-y: auto;
        }
 
-
        body.dark {
            background: #121212;
            color: white;
        }
-
 
        /* HEADER & BANNER */
        .header {
@@ -43,12 +41,10 @@
            z-index: 2000;
        }
 
-
        body.dark .header {
            background: #1f1f1f;
            border-color: #333;
        }
-
 
        .left,
        .right {
@@ -57,12 +53,10 @@
            gap: 12px;
        }
 
-
        .logo {
            height: 40px;
            border-radius: 5px;
        }
-
 
        .avatar {
            width: 40px;
@@ -70,7 +64,6 @@
            border-radius: 50%;
            border: 2px solid #d35400;
        }
-
 
        .icon {
            width: 35px;
@@ -83,11 +76,9 @@
            cursor: pointer;
        }
 
-
        body.dark .icon {
            background: #2a2a2a;
        }
-
 
        /* CẤU TRÚC SEARCH TRÊN HEADER */
        .search-container {
@@ -101,12 +92,10 @@
            transition: 0.3s;
        }
 
-
        body.dark .search-container {
            background: #2a2a2a;
            border-color: #444;
        }
-
 
        #search-input {
            border: none;
@@ -117,7 +106,6 @@
            width: 100%;
            font-family: inherit;
        }
-
 
        /* BANNER SLIDER */
        .banner {
@@ -133,7 +121,6 @@
            height: 300px;
        }
 
-
        .banner-container {
            display: flex;
            width: 100%;
@@ -141,7 +128,6 @@
            user-select: none;
            pointer-events: none;
        }
-
 
        .banner-container img {
            min-width: 100%;
@@ -151,21 +137,16 @@
            background-color: transparent;
        }
 
-
        #table-info {
            position: relative;
-           /* Đổi từ absolute sang relative để nó tự tìm chỗ trống */
            left: auto;
            transform: none;
            font-weight: bold;
            color: #d35400;
            font-size: 0.95rem;
-           /* Giảm nhẹ để vừa màn hình đt */
            white-space: nowrap;
            margin-right: 5px;
-           /* Tạo khoảng cách với icon trăng khuyết */
        }
-
 
        /* MAIN LAYOUT */
        .main-container {
@@ -176,12 +157,10 @@
            align-items: flex-start;
        }
 
-
        .content-area {
            flex: 3;
            min-height: 100vh;
        }
-
 
        /* TABS CỐ ĐỊNH KHI CUỘN */
        .sticky-nav {
@@ -195,11 +174,9 @@
            gap: 10px;
        }
 
-
        body.dark .sticky-nav {
            background: #121212;
        }
-
 
        .top-menu {
            display: flex;
@@ -210,11 +187,9 @@
            width: fit-content;
        }
 
-
        body.dark .top-menu {
            background: #2a2a2a;
        }
-
 
        .top-menu-item {
            text-decoration: none;
@@ -227,17 +202,14 @@
            transition: 0.3s;
        }
 
-
        body.dark .top-menu-item {
            color: #bbb;
        }
-
 
        .top-menu-item.active {
            background: #d35400 !important;
            color: white !important;
        }
-
 
        /* GRID */
        .article-grid {
@@ -247,7 +219,6 @@
            padding-bottom: 50px;
        }
 
-
        .article-card {
            background: white;
            padding: 10px;
@@ -256,16 +227,13 @@
            transition: 0.3s;
        }
 
-
        .article-card:hover {
            transform: translateY(-5px);
        }
 
-
        body.dark .article-card {
            background: #1e1e1e;
        }
-
 
        .img {
            width: 100%;
@@ -275,7 +243,6 @@
            background: #eee;
        }
 
-
        .article-title {
            margin: 10px 0 5px;
            font-size: 0.95rem;
@@ -284,13 +251,11 @@
            font-weight: bold;
        }
 
-
        .article-desc {
            color: #d35400;
            margin-bottom: 10px;
            font-weight: bold;
        }
-
 
        .btn-more {
            display: block;
@@ -304,7 +269,6 @@
            font-weight: bold;
        }
 
-
        /* SIDEBAR */
        .sidebar {
            flex: 1.2;
@@ -317,11 +281,9 @@
            z-index: 900;
        }
 
-
        body.dark .sidebar {
            background: #1e1e1e;
        }
-
 
        .cart-header {
            padding: 15px;
@@ -332,12 +294,10 @@
            align-items: center;
        }
 
-
        body.dark .cart-header {
            background: #252525;
            border-color: #333;
        }
-
 
        .cart-section {
            padding: 15px;
@@ -345,12 +305,10 @@
            overflow-y: auto;
        }
 
-
        .footer-payment {
            padding: 15px;
            border-top: 1px solid #eee;
        }
-
 
        .total {
            font-weight: bold;
@@ -360,7 +318,6 @@
            justify-content: space-between;
            margin-top: 10px;
        }
-
 
        .submit-btn {
            width: 100%;
@@ -375,7 +332,6 @@
            font-family: inherit;
        }
 
-
        .item {
            display: flex;
            margin-bottom: 15px;
@@ -383,14 +339,12 @@
            gap: 10px;
        }
 
-
        .item-img {
            width: 45px;
            height: 45px;
            border-radius: 5px;
            object-fit: cover;
        }
-
 
        .btn-qty {
            width: 22px;
@@ -400,7 +354,6 @@
            border-radius: 50%;
            cursor: pointer;
        }
-
 
        /* MODALS & TOAST */
        #invoice-modal,
@@ -418,7 +371,6 @@
            padding: 20px;
        }
 
-
        .invoice-content {
            background: white;
            padding: 20px;
@@ -430,7 +382,6 @@
            overflow-y: auto;
        }
 
-
        .invoice-table {
            width: 100%;
            border-collapse: collapse;
@@ -438,29 +389,24 @@
            margin: 10px 0;
        }
 
-
        .invoice-table th {
            border-bottom: 1px dashed #000;
            padding: 5px 0;
            text-align: left;
        }
 
-
        .col-name {
            width: 45%;
        }
-
 
        .col-price,
        .col-qty {
            text-align: center;
        }
 
-
        .col-total {
            text-align: right;
        }
-
 
        .total-row {
            border-top: 1px dashed #000;
@@ -468,7 +414,6 @@
            margin-top: 10px;
            padding-top: 5px;
        }
-
 
        .close-invoice {
            margin-top: 20px;
@@ -483,7 +428,6 @@
            font-family: inherit;
        }
 
-
        .modal-box {
            background: white;
            width: 100%;
@@ -493,7 +437,6 @@
            text-align: center;
            color: #333;
        }
-
 
        .modal-icon {
            width: 50px;
@@ -508,14 +451,12 @@
            margin: 0 auto 15px;
        }
 
-
        .modal-title {
            font-weight: bold;
            font-size: 16px;
            margin-bottom: 10px;
            color: #d35400;
        }
-
 
        .modal-btn {
            background: #d35400;
@@ -529,14 +470,12 @@
            font-family: inherit;
        }
 
-
        #toast-container {
            position: fixed;
            top: 85px;
            right: 20px;
            z-index: 9999;
        }
-
 
        .toast {
            background: #27ae60;
@@ -549,18 +488,15 @@
            font-size: 14px;
        }
 
-
        @keyframes slideIn {
            from {
                transform: translateX(100%);
            }
 
-
            to {
                transform: translateX(0);
            }
        }
-
 
        #global-note {
            width: 100%;
@@ -575,24 +511,20 @@
            color: #333;
        }
 
-
        /* MOBILE OPTIMIZATION */
        @media (max-width: 768px) {
            .header .search-container {
                width: 120px;
            }
 
-
            .main-container {
                flex-direction: column;
            }
-
 
            .sticky-nav {
                top: 70px;
                padding: 10px 0;
            }
-
 
            .sidebar {
                position: fixed !important;
@@ -609,12 +541,10 @@
                top: auto;
            }
 
-
            .sidebar.active {
                height: 85vh;
                overflow-y: auto;
            }
-
 
            .cart-header {
                height: 65px;
@@ -624,24 +554,20 @@
                border: none;
            }
 
-
            .cart-header h3::after {
                content: ' 🔼';
                font-size: 12px;
                margin-left: 8px;
            }
 
-
            .sidebar.active .cart-header h3::after {
                content: ' 🔽';
            }
-
 
            body {
                padding-bottom: 80px;
            }
        }
-
 
        .nav-arrows {
            position: fixed;
@@ -652,7 +578,6 @@
            gap: 10px;
            z-index: 1001;
        }
-
 
        .arrow-btn {
            width: 45px;
@@ -670,11 +595,9 @@
            transition: 0.2s;
        }
 
-
        .arrow-btn:active {
            transform: scale(0.9);
        }
-
 
        .btn-call {
            background: #27ae60 !important;
@@ -704,7 +627,6 @@
    <div class="banner" >
        <div class="banner-container" >
            <img src="https://raw.githubusercontent.com/DuongLQPTIT/pop-quan-an/refs/heads/main/661366807_4223851564532530_1368547044873374033_n.png">
-           
        </div>
    </div>
 
@@ -731,7 +653,7 @@
            </div>
            <div class="takeaway-area" style="padding: 0 15px;">
                <label style="font-size: 11px; font-weight: bold; color: #d35400;">Ghi chú / khác:</label>
-               <textarea id="global-note" rows="2"
+               <textarea id="global-note" rows="2" oninput="dongBoFirebaseNgam()"
                    placeholder=" Quý khách mua mang về tất cả ghi chú tại đây..."></textarea>
            </div>
            <footer class="footer-payment">
@@ -770,7 +692,7 @@
                </div>
                <p id="timer-display" style="font-size: 12px; color: red; margin-top: 5px;"></p>
            </div>
-           <button class="close-invoice" onclick="guiDonHang()">XÁC NHẬN ĐÃ CHUYỂN</button>
+           <button class="close-invoice" onclick="closeInvoice()">XÁC NHẬN ĐÃ CHUYỂN</button>
            <button class="close-invoice" style="background:#eee; color:#333; margin-top:5px;"
                onclick="document.getElementById('invoice-modal').style.display='none'">QUAY LẠI</button>
        </div>
@@ -800,14 +722,18 @@
        <p style="opacity: 0.7; margin-top: 10px;"> © 2026 Bep Viet Restaurant. All rights reserved.</p>
    </footer>
 
-   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
-
    <script>
-       // CẤU HÌNH FIREBASE KẾT NỐI SERVER ĐỒNG BỘ REALTIME
+       // --- THIẾT LẬP KẾT NỐI FIREBASE CHO TRANG KHÁCH ---
        const firebaseConfig = {
-           databaseURL: "https://order-viet-default-rtdb.firebaseio.com"
+           databaseURL: "https://smart-menu-b8df2-default-rtdb.firebaseio.com/"
        };
+       if (!firebase.apps.length) {
+           firebase.initializeApp(firebaseConfig);
+       }
+       const serverDatabase = firebase.database();
+
+       // BIẾN TOÀN CỤC CHỨA SỐ BÀN MẶC ĐỊNH (Sẽ ghi đè tự động khi có URL)
+       let MA_SO_BAN = ""; 
 
        const BANK_ID = "MB";
        const ACCOUNT_NO = "0862976818";
@@ -821,7 +747,6 @@
            { id: 106, type: 'main', name: "BÚN ĐẬU MẮM TÔM", price: 59000, img: "https://i-giadinh.vnecdn.net/2025/05/16/Bun-dau-mam-tom-6-vnexpress-17-9082-8722-1747388531.jpg" },
            { id: 107, type: 'main', name: "BÁNH MÌ", price: 25000, img: "https://cdn-i2.congthuong.vn/stores/news_dataimages/2024/032024/16/09/top-1-mon-sandwich-ngon-nhat-the-gioi-goi-ten-banh-my-viet-nam1710498007-182420240316092132.jpg?rt=20240316092204" },
            { id: 108, type: 'main', name: "BÚN CHẢ", price: 39000, img: "https://cooponline.vn/tin-tuc/wp-content/uploads/2025/10/hoc-cach-lam-bun-cha-mien-bac-chuan-ha-noi-tai-nha.png" },
-           { id: 109, type: 'main', name: "PHỞ CUỐN", price: 59000, img: "https://cdnv2.tgdd.vn/mwg-static/common/Common/H%C3%ACnh%20m%C3%B3n%20an%20t11%20%281200%20x%20676%20px%29%20-%202025-11-24T103337.919.jpg" },
            { id: 110, type: 'main', name: "NEM NƯỚNG", price: 49000, img: "https://www.cleanipedia.com/images/5iwkm8ckyw6v/jLmMMPcXosJS3bzHN3VOM/00f5ae7421ecd5584451438559d86b50/Y2FjaC1sYW0tbmVtLW51b25nLmpwZw/1200w/m%E1%BB%99t-%C4%91%C4%A9a-th%E1%BB%A9c-%C4%83n-vi%E1%BB%87t-nam-v%E1%BB%9Bi-ch%E1%BA%A3-gi%C3%B2%2C-nem-n%C6%B0%E1%BB%9Bng%2C-rau-s%E1%BB%91ng-v%C3%A0-n%C6%B0%E1%BB%9Bc-ch%E1%BA%A5m..jpg" },
            { id: 201, type: 'drink', name: "TRÀ ĐÀO CAM SẢ", price: 35000, img: "https://cdn-merchant.vinid.net/images/gallery/vinshop-seo/1749515439_cong-thuc-pha-tra-dao-cam-sa-3.jpg" },
            { id: 202, type: 'drink', name: "CÀ PHÊ MUỐI", price: 30000, img: "https://cubes-asia.com/storage/blogs/2024-12/cach-lam-ca-phe-muoi-nguyen-lieu-cong-thuc-lam.jpg" },
@@ -847,9 +772,39 @@
        let cart = [];
        let timerInterval;
        let currentCategory = 'main';
-       let tableNo = "1";
+
+       // HÀM ĐỒNG BỘ DỮ LIỆU NGẦM LÊN FIREBASE TRÙNG KHỚP CẤU TRÚC FILE QUẢN LÝ
+       function dongBoFirebaseNgam() {
+           if(MA_SO_BAN === "Chưa nhận diện") return; // Tránh đẩy dữ liệu rác nếu đường link lỗi
+           const noteChung = document.getElementById('global-note') ? document.getElementById('global-note').value : "";
+           let totalAmount = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+           
+           serverDatabase.ref('tables/ban_' + MA_SO_BAN).set({
+               cart: cart,
+               totalPrice: totalAmount,
+               note: noteChung
+           });
+       }
+
+       // Khởi chạy ban đầu để tự động bóc tách số bàn từ link QR
+       window.onload = function() {
+           const params = new URLSearchParams(window.location.search);
+           const tableParam = params.get("Table"); // Đọc giá trị sau '?Table='
+           
+           if (tableParam) {
+               MA_SO_BAN = tableParam;
+               document.getElementById('table-info').innerText = MA_SO_BAN === "mv" ? "BÀN MANG VỀ" : "Bàn số: " + MA_SO_BAN;
+           } else {
+               document.getElementById('table-info').innerText = "";
+           }
+           
+           // Hiển thị danh mục món ăn chính ban đầu
+           const defaultItems = menuData.filter(m => m.type === 'main');
+           renderMenu(defaultItems);
+       };
 
        function toggleDark() { document.body.classList.toggle("dark"); }
+       
        function showToast(msg) {
            const container = document.getElementById('toast-container');
            const t = document.createElement('div');
@@ -857,6 +812,7 @@
            container.appendChild(t);
            setTimeout(() => { t.style.opacity = '0'; setTimeout(() => t.remove(), 500); }, 2000);
        }
+       
        function filterMenu(type, element) {
            currentCategory = type;
            document.getElementById('search-input').value = "";
@@ -864,6 +820,7 @@
            if (element) element.classList.add('active');
            renderMenu(menuData.filter(m => m.type === type));
        }
+       
        function searchFood(val) {
            const keyword = val.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "").replace(/đ/g, "d");
            if (!keyword) return filterMenu(currentCategory, document.querySelector(`.top-menu-item[onclick*='${currentCategory}']`));
@@ -871,6 +828,7 @@
            const filtered = menuData.filter(item => item.name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "").replace(/đ/g, "d").includes(keyword));
            renderMenu(filtered);
        }
+       
        function renderMenu(items) {
            const grid = document.getElementById('menu-grid');
            if (items.length === 0) {
@@ -886,27 +844,34 @@
            </div>
        `).join('');
        }
+       
        function addToCart(id) {
            const product = menuData.find(p => p.id === id);
            const inCart = cart.find(c => c.id === id);
            if (inCart) inCart.qty++; else cart.push({ ...product, qty: 1 });
            renderCart();
+           dongBoFirebaseNgam();
            showToast(`Đã thêm ${product.name}`);
        }
+       
        function updateQty(id, change) {
            const item = cart.find(i => i.id === id);
            if (item) {
                item.qty += change;
                if (item.qty <= 0) cart = cart.filter(i => i.id !== id);
                renderCart();
+               dongBoFirebaseNgam();
            }
        }
+       
        function clearCart() {
            if (confirm("Bạn muốn xóa toàn bộ giỏ hàng?")) {
                cart = [];
                renderCart();
+               serverDatabase.ref('tables/ban_' + MA_SO_BAN).remove();
            }
        }
+       
        function renderCart() {
            const list = document.getElementById('cart-list');
            let total = 0;
@@ -919,7 +884,8 @@
                    <img src="${item.img}" class="item-img" onerror="this.src='https://via.placeholder.com/50'">
                    <div style="flex:1">
                        <div style="font-weight:bold; font-size:13px;">${item.name}</div>
-                       <input type="text" style="width: 100%; margin-top: 5px; padding: 4px; font-size: 11px; border: 1px solid #eee; border-radius: 4px; outline: none; color: #d35400; font-family: inherit;" placeholder="Ghi chú (VD: Muốn mang về X phần; ít cay...)" oninput="updateItemNote(${item.id}, this.value)" value="${item.note || ''}">
+                       <input type="text" style="width: 100%; margin-top: 5px; padding: 4px; font-size: 11px; border: 1px solid #eee; border-radius: 4px; outline: none; color: #d35400; font-family: inherit;" 
+                       placeholder="Ghi chú món này..." oninput="updateItemNote(${item.id}, this.value)" value="${item.note || ''}">
                        <div style="display:flex; align-items:center; gap:8px; margin-top:3px;">
                            <button class="btn-qty" onclick="updateQty(${item.id}, -1)">-</button>
                            <span>${item.qty}</span>
@@ -927,16 +893,21 @@
                        </div>
                    </div>
                    <b style="font-size:13px;">${(item.price * item.qty).toLocaleString()}VND</b>
-               </div>`;
+                   </div>`;
                }).join('');
            }
            document.getElementById('final-total').innerText = total.toLocaleString() + 'VND';
            document.getElementById('count-items').innerText = cart.reduce((sum, item) => sum + item.qty, 0);
        }
+
        function updateItemNote(id, val) {
            const item = cart.find(i => i.id === id);
-           if (item) item.note = val;
+           if (item) {
+               item.note = val;
+               dongBoFirebaseNgam();
+           }
        }
+       
        function showInvoice() {
            if (cart.length === 0) return alert("Hãy chọn món trước khi thanh toán nhé!");
            document.getElementById('mobile-sidebar').classList.remove('active');
@@ -951,19 +922,20 @@
            if (noteChung) itemsHtml += `<tr><td colspan="4" style="font-size:11px; color:gray; padding-top:5px;">Ghi chú: ${noteChung}</td></tr>`;
            document.getElementById('invoice-items').innerHTML = itemsHtml;
            document.getElementById('invoice-total').innerText = total.toLocaleString() + " VND";
-           
            document.getElementById('acc-name').innerText = ACCOUNT_NAME;
-           const qrUrl = `https://img.vietqr.io/image/${BANK_ID}-${ACCOUNT_NO}-qr_only.png?amount=${total}&addInfo=Ban%20${tableNo}%20Thanh%20Toan`;
+           invoiceModal.style.display = 'flex';
            const qrImg = document.getElementById('qr-code');
+           const qrUrl = `https://img.vietqr.io/image/${BANK_ID}-${ACCOUNT_NO}-compact2.png?amount=${total}&addInfo=Thanh toan don hang ban ${MA_SO_BAN}&accountName=${encodeURIComponent(ACCOUNT_NAME)}`;
+           document.getElementById('qr-loading').style.display = 'block';
+           qrImg.style.display = 'none';
            qrImg.src = qrUrl;
-           qrImg.onload = function() {
+           qrImg.onload = () => {
                document.getElementById('qr-loading').style.display = 'none';
                qrImg.style.display = 'block';
                startTimer(300);
            };
-           invoiceModal.style.display = 'flex';
        }
-
+       
        function startTimer(t) {
            clearInterval(timerInterval);
            const display = document.getElementById('timer-display');
@@ -973,85 +945,35 @@
                if (--t < 0) { clearInterval(timerInterval); display.innerText = "Mã QR đã hết hạn."; }
            }, 1000);
        }
+       
        function closeInvoice() {
            document.getElementById('invoice-modal').style.display = 'none';
            document.getElementById('orderModal').style.display = 'flex';
        }
+       
        function closeOrderModal() {
            document.getElementById('orderModal').style.display = 'none';
            cart = [];
+           document.getElementById('global-note').value = "";
            renderCart();
+           serverDatabase.ref('tables/ban_' + MA_SO_BAN).remove();
            clearInterval(timerInterval);
            window.scrollTo({ top: 0, behavior: 'smooth' });
        }
+       
        function toggleMobileCart() {
            if (window.innerWidth <= 768) document.getElementById('mobile-sidebar').classList.toggle('active');
        }
+       
        function callStaff() {
            if (confirm("Bạn cần gọi nhân viên phục vụ?")) {
                showToast("🔔 Đã gửi yêu cầu! Nhân viên sẽ đến ngay.");
            }
        }
-
-       // ĐỒNG BỘ ĐẨY DỮ LIỆU ĐƠN HÀNG LÊN FIREBASE SERVER REALTIME
-       function guiDonHang() {
-           if (!window.serverDatabase) {
-               alert("Hệ thống đang kết nối đến máy chủ, vui lòng thử lại sau 2 giây!");
-               return;
-           }
-
-           const urlParams = new URLSearchParams(window.location.search);
-           let soBan = urlParams.get('Table') || "1"; 
-           const keyBan = "ban_" + parseInt(soBan);
-
-           if (cart.length === 0) {
-               alert("Giỏ hàng của bạn đang trống! Vui lòng chọn món trước.");
-               return;
-           }
-
-           let totalAmount = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
-           const thongTinDonHang = {
-               cart: cart,
-               totalPrice: totalAmount,
-               note: document.getElementById('global-note').value.trim() || ""
-           };
-
-           window.serverDatabase.ref('tables/' + keyBan).set(thongTinDonHang)
-           .then(() => {
-               alert("Đặt món thành công! Món ăn đã được đồng bộ trực tiếp tới quầy quản lý.");
-               closeInvoice();
-           })
-           .catch((error) => {
-               console.error("Lỗi đồng bộ Firebase:", error);
-               alert("Gửi đơn hàng thất bại, vui lòng kiểm tra kết nối mạng!");
-           });
-       }
-
-       window.addEventListener('resize', () => {
-           if(window.innerWidth > 768) {
-               document.getElementById('mobile-sidebar').classList.remove('active');
-           }
-       });
-       
-       renderMenu(menuData.filter(m => m.type === 'main'));
-       renderCart();
-       
-       window.onload = function () {
-           if (!firebase.apps.length) {
-               firebase.initializeApp(firebaseConfig);
-           }
-           window.serverDatabase = firebase.database();
-           console.log("Firebase đã kết nối thành công tại trang Khách!");
-
-           const params = new URLSearchParams(window.location.search);
-           tableNo = params.get("Table") || "1";
-           if (tableNo) document.getElementById("table-info").innerText = " BÀN " + tableNo;
-           filterMenu('main', document.querySelector('.top-menu-item'));
-       };
    </script>
 </body>
-</html>
 
+</html>
 
 
 
