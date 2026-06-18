@@ -721,9 +721,11 @@
        <p>📞 <b>Hotline:</b> 0356 378 392 | <b>Email:</b> bepviet.info@gmail.com</p>
        <p style="opacity: 0.7; margin-top: 10px;"> © 2026 Bep Viet Restaurant. All rights reserved.</p>
    </footer>
-
 <script>
-    // --- THIẾT LẬP KẾT NỐI FIREBASE CHO TRANG KHÁCH ---
+    // --- THIẾT LẬP CẤU HÌNH API FIREBASE REALTIME DATABASE ---
+    const FIREBASE_BASE_URL = "https://smart-menu-b8df2-default-rtdb.firebaseio.com";
+
+    // Khởi tạo SDK cũ (Giữ lại để không lỗi hệ thống cũ nếu cần)
     const firebaseConfig = {
         databaseURL: "https://smart-menu-b8df2-default-rtdb.firebaseio.com/"
     };
@@ -732,7 +734,6 @@
     }
     const serverDatabase = firebase.database();
 
-    // Biến toàn cục chứa số bàn (Khách quét vào là chắc chắn có số bàn)
     let MA_SO_BAN = ""; 
 
     const BANK_ID = "MB";
@@ -773,19 +774,29 @@
     let timerInterval;
     let currentCategory = 'main';
 
-    // HÀM ĐỒNG BỘ DỮ LIỆU NGẦM LÊN FIREBASE TRÙNG KHỚP CẤU TRÚC FILE QUẢN LÝ
+    // ĐỒNG BỘ QUA API (PUT)
     function dongBoFirebaseNgam() {
         const noteChung = document.getElementById('global-note') ? document.getElementById('global-note').value : "";
         let totalAmount = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
         
-        serverDatabase.ref('tables/ban_' + MA_SO_BAN).set({
+        const dataToSync = {
             cart: cart,
             totalPrice: totalAmount,
             note: noteChung
-        });
+        };
+
+        // Đồng thời cập nhật qua SDK cũ để giữ tính năng
+        serverDatabase.ref('tables/ban_' + MA_SO_BAN).set(dataToSync);
+
+        // Chạy thêm đồng bộ API qua fetch
+        fetch(`${FIREBASE_BASE_URL}/tables/ban_${MA_SO_BAN}.json`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(dataToSync)
+        })
+        .catch(error => console.error('Lỗi API đồng bộ:', error));
     }
 
-    // Tự động bóc tách mã bàn từ URL (Chấp nhận cả chữ T hoa và t thường)
     window.onload = function() {
         const params = new URLSearchParams(window.location.search);
         const tableParam = params.get("Table") || params.get("table"); 
@@ -797,7 +808,6 @@
             document.getElementById('table-info').innerText = "";
         }
         
-        // Hiển thị danh mục món ăn chính ban đầu
         const defaultItems = menuData.filter(m => m.type === 'main');
         renderMenu(defaultItems);
     };
@@ -875,7 +885,11 @@
         if (confirm("Bạn muốn xóa toàn bộ giỏ hàng?")) {
             cart = [];
             renderCart();
+            // SDK cũ
             serverDatabase.ref('tables/ban_' + MA_SO_BAN).remove();
+            // API mới
+            fetch(`${FIREBASE_BASE_URL}/tables/ban_${MA_SO_BAN}.json`, { method: 'DELETE' })
+            .catch(error => console.error('Lỗi API xóa:', error));
         }
     }
     
@@ -946,17 +960,34 @@
     function closeOrderModal() {
         document.getElementById('orderModal').style.display = 'none';
         cart = []; renderCart();
+        // SDK cũ
         serverDatabase.ref('tables/ban_' + MA_SO_BAN).remove();
+        // API mới
+        fetch(`${FIREBASE_BASE_URL}/tables/ban_${MA_SO_BAN}.json`, { method: 'DELETE' })
+        .catch(error => console.error('Lỗi API xóa khi tất toán:', error));
     }
     
     function callStaff() {
+        // SDK cũ
         serverDatabase.ref('calls/ban_' + MA_SO_BAN).set({
             time: new Date().toLocaleTimeString(),
             status: "Đang đợi"
         });
-        showToast("🔔 Đang gọi phục vụ bàn " + MA_SO_BAN);
+        // API mới
+        const callData = {
+            time: new Date().toLocaleTimeString(),
+            status: "Đang đợi"
+        };
+        fetch(`${FIREBASE_BASE_URL}/calls/ban_${MA_SO_BAN}.json`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(callData)
+        })
+        .then(() => showToast("🔔 Đang gọi phục vụ bàn " + MA_SO_BAN))
+        .catch(error => console.error('Lỗi API gọi phục vụ:', error));
     }
 </script>
+
 </body>
 
 </html>
