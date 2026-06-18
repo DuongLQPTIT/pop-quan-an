@@ -1,14 +1,5 @@
-
-Dương ơi, mình hiểu ý bạn rồi! Mình sẽ giữ nguyên 100% cấu trúc, giao diện, và toàn bộ tính năng cũ của bạn (kể cả mảng dữ liệu `menuData`, `restaurantTables`, tính năng tạo QR VietQR, slider chạy ảnh...). Mình chỉ chèn thêm đúng phần kết nối Firebase vào vị trí thích hợp để nó tự động chạy luôn mà bạn không cần phải tự sửa tay nữa.
-
-Bạn copy toàn bộ code của từng file dưới đây và dán đè (thay thế hoàn toàn) vào file của bạn là xong nhé:
-
-### 1. File hoàn chỉnh cho `Bao.html` (Trang khách gọi món)
-
-```html
 <!DOCTYPE html>
 <html lang="vi">
-
 
 <head>
    <meta charset="UTF-8">
@@ -22,7 +13,6 @@ Bạn copy toàn bộ code của từng file dưới đây và dán đè (thay t
            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif, Arial, "Helvetica Neue", sans-serif;
        }
 
-
        body {
            background: #f4f4f4;
            color: #333;
@@ -30,12 +20,10 @@ Bạn copy toàn bộ code của từng file dưới đây và dán đè (thay t
            overflow-y: auto;
        }
 
-
        body.dark {
            background: #121212;
            color: white;
        }
-
 
        /* HEADER & BANNER */
        .header {
@@ -51,12 +39,10 @@ Bạn copy toàn bộ code của từng file dưới đây và dán đè (thay t
            z-index: 2000;
        }
 
-
        body.dark .header {
            background: #1f1f1f;
            border-color: #333;
        }
-
 
        .left,
        .right {
@@ -65,12 +51,10 @@ Bạn copy toàn bộ code của từng file dưới đây và dán đè (thay t
            gap: 12px;
        }
 
-
        .logo {
            height: 40px;
            border-radius: 5px;
        }
-
 
        .avatar {
            width: 40px;
@@ -78,7 +62,6 @@ Bạn copy toàn bộ code của từng file dưới đây và dán đè (thay t
            border-radius: 50%;
            border: 2px solid #d35400;
        }
-
 
        .icon {
            width: 35px;
@@ -91,13 +74,10 @@ Bạn copy toàn bộ code của từng file dưới đây và dán đè (thay t
            cursor: pointer;
        }
 
-
        body.dark .icon {
            background: #2a2a2a;
        }
 
-
-       /* CẤU TRÚC SEARCH TRÊN HEADER */
        .search-container {
            display: flex;
            align-items: center;
@@ -109,12 +89,10 @@ Bạn copy toàn bộ code của từng file dưới đây và dán đè (thay t
            transition: 0.3s;
        }
 
-
        body.dark .search-container {
            background: #2a2a2a;
            border-color: #444;
        }
-
 
        #search-input {
            border: none;
@@ -123,182 +101,139 @@ Bạn copy toàn bộ code của từng file dưới đây và dán đè (thay t
            color: inherit;
            font-size: 13px;
            width: 100%;
-           font-family: inherit;
        }
-
 
        /* BANNER SLIDER */
-       .banner {
-           width: 100%;
-           background-image: url('https://halotravel.vn/wp-content/uploads/2021/04/nha-hang-mon-viet-sang-trong-quan-1-2-1024x768.jpg');
-           background-size: cover;
-           background-position: center;
-           background-repeat: no-repeat;
-           display: flex;
-           justify-content: center;
-           overflow: hidden;
-           position: relative;
-           height: 300px;
-       }
-
-
        .banner-container {
+           width: 95%;
+           margin: 15px auto 0;
+           overflow: hidden;
+           border-radius: 15px;
+           position: relative;
+           box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+       }
+
+       .banner-slider {
            display: flex;
            width: 100%;
-           height: 100%;
-           user-select: none;
-           pointer-events: none;
        }
 
-
-       .banner-container img {
+       .banner-slide {
            min-width: 100%;
-           height: 100%;
-           display: block;
-           object-fit: contain;
-           background-color: transparent;
+           height: 250px;
+           object-fit: cover;
        }
-
 
        #table-info {
-           position: relative;
-           /* Đổi từ absolute sang relative để nó tự tìm chỗ trống */
-           left: auto;
-           transform: none;
            font-weight: bold;
            color: #d35400;
-           font-size: 0.95rem;
-           /* Giảm nhẹ để vừa màn hình đt */
-           white-space: nowrap;
-           margin-right: 5px;
-           /* Tạo khoảng cách với icon trăng khuyết */
+           font-size: 1.1rem;
        }
-
 
        /* MAIN LAYOUT */
        .main-container {
            display: flex;
            width: 95%;
-           margin: 10px auto;
+           margin: 20px auto;
            gap: 20px;
-           align-items: flex-start;
        }
-
 
        .content-area {
            flex: 3;
-           min-height: 100vh;
        }
 
-
-       /* TABS CỐ ĐỊNH KHI CUỘN */
+       /* STICKY NAV */
        .sticky-nav {
            position: sticky;
            top: 70px;
            z-index: 1000;
            background: #f4f4f4;
-           padding: 15px 0;
+           padding: 10px 0;
            display: flex;
            align-items: center;
-           gap: 10px;
+           justify-content: space-between;
        }
-
 
        body.dark .sticky-nav {
            background: #121212;
        }
 
-
        .top-menu {
            display: flex;
            gap: 10px;
            background: #e0e0e0;
-           padding: 8px;
-           border-radius: 12px;
-           width: fit-content;
+           padding: 5px;
+           border-radius: 25px;
        }
-
 
        body.dark .top-menu {
            background: #2a2a2a;
        }
 
-
        .top-menu-item {
            text-decoration: none;
            color: #555;
            padding: 8px 20px;
-           border-radius: 8px;
+           border-radius: 20px;
            font-size: 14px;
            font-weight: bold;
            cursor: pointer;
            transition: 0.3s;
        }
 
-
        body.dark .top-menu-item {
            color: #bbb;
        }
 
-
        .top-menu-item.active {
-           background: #d35400 !important;
-           color: white !important;
-         }
-
+           background: #d35400;
+           color: white;
+       }
 
        /* GRID */
        .article-grid {
            display: grid;
-           grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+           grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
            gap: 20px;
-           padding-bottom: 50px;
+           margin-top: 10px;
+           padding-bottom: 60px;
        }
-
 
        .article-card {
            background: white;
-           padding: 10px;
+           padding: 15px;
            border-radius: 12px;
            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
            transition: 0.3s;
        }
 
-
        .article-card:hover {
            transform: translateY(-5px);
        }
 
-
        body.dark .article-card {
            background: #1e1e1e;
        }
-
 
        .img {
            width: 100%;
            height: 150px;
            object-fit: cover;
            border-radius: 8px;
-           background: #eee;
        }
-
 
        .article-title {
            margin: 10px 0 5px;
-           font-size: 0.95rem;
+           font-size: 1rem;
            height: 2.4em;
            overflow: hidden;
-           font-weight: bold;
        }
-
 
        .article-desc {
            color: #d35400;
            margin-bottom: 10px;
            font-weight: bold;
        }
-
 
        .btn-more {
            display: block;
@@ -308,10 +243,9 @@ Bạn copy toàn bộ code của từng file dưới đây và dán đè (thay t
            color: white;
            text-decoration: none;
            border-radius: 5px;
-           font-size: 0.85em;
+           font-size: 0.9em;
            font-weight: bold;
        }
-
 
        /* SIDEBAR */
        .sidebar {
@@ -321,44 +255,37 @@ Bạn copy toàn bộ code của từng file dưới đây và dán đè (thay t
            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
            position: sticky;
            top: 85px;
+           height: calc(100vh - 110px);
            overflow: hidden;
-           z-index: 900;
+           display: flex;
+           flex-direction: column;
        }
-
 
        body.dark .sidebar {
            background: #1e1e1e;
        }
 
-
        .cart-header {
            padding: 15px;
            background: #fafafa;
            border-bottom: 1px solid #eee;
-           display: flex;
-           justify-content: space-between;
-           align-items: center;
        }
-
 
        body.dark .cart-header {
            background: #252525;
            border-color: #333;
        }
 
-
        .cart-section {
            padding: 15px;
-           max-height: 60vh;
+           flex: 1;
            overflow-y: auto;
        }
 
-
-       .footer-payment {
+       .right-panel {
            padding: 15px;
            border-top: 1px solid #eee;
        }
-
 
        .total {
            font-weight: bold;
@@ -368,7 +295,6 @@ Bạn copy toàn bộ code của từng file dưới đây và dán đè (thay t
            justify-content: space-between;
            margin-top: 10px;
        }
-
 
        .submit-btn {
            width: 100%;
@@ -380,9 +306,7 @@ Bạn copy toàn bộ code của từng file dưới đây và dán đè (thay t
            font-weight: bold;
            margin-top: 10px;
            cursor: pointer;
-           font-family: inherit;
        }
-
 
        .item {
            display: flex;
@@ -391,14 +315,12 @@ Bạn copy toàn bộ code của từng file dưới đây và dán đè (thay t
            gap: 10px;
        }
 
-
        .item-img {
            width: 45px;
            height: 45px;
            border-radius: 5px;
            object-fit: cover;
        }
-
 
        .btn-qty {
            width: 22px;
@@ -408,7 +330,6 @@ Bạn copy toàn bộ code của từng file dưới đây và dán đè (thay t
            border-radius: 50%;
            cursor: pointer;
        }
-
 
        /* MODALS & TOAST */
        #invoice-modal,
@@ -426,7 +347,6 @@ Bạn copy toàn bộ code của từng file dưới đây và dán đè (thay t
            padding: 20px;
        }
 
-
        .invoice-content {
            background: white;
            padding: 20px;
@@ -438,7 +358,6 @@ Bạn copy toàn bộ code của từng file dưới đây và dán đè (thay t
            overflow-y: auto;
        }
 
-
        .invoice-table {
            width: 100%;
            border-collapse: collapse;
@@ -446,29 +365,24 @@ Bạn copy toàn bộ code của từng file dưới đây và dán đè (thay t
            margin: 10px 0;
        }
 
-
        .invoice-table th {
            border-bottom: 1px dashed #000;
            padding: 5px 0;
            text-align: left;
        }
 
-
        .col-name {
            width: 45%;
        }
-
 
        .col-price,
        .col-qty {
            text-align: center;
        }
 
-
        .col-total {
            text-align: right;
        }
-
 
        .total-row {
            border-top: 1px dashed #000;
@@ -476,7 +390,6 @@ Bạn copy toàn bộ code của từng file dưới đây và dán đè (thay t
            margin-top: 10px;
            padding-top: 5px;
        }
-
 
        .close-invoice {
            margin-top: 20px;
@@ -488,9 +401,7 @@ Bạn copy toàn bộ code của từng file dưới đây và dán đè (thay t
            cursor: pointer;
            border-radius: 5px;
            font-weight: bold;
-           font-family: inherit;
        }
-
 
        .modal-box {
            background: white;
@@ -501,7 +412,6 @@ Bạn copy toàn bộ code của từng file dưới đây và dán đè (thay t
            text-align: center;
            color: #333;
        }
-
 
        .modal-icon {
            width: 50px;
@@ -516,14 +426,12 @@ Bạn copy toàn bộ code của từng file dưới đây và dán đè (thay t
            margin: 0 auto 15px;
        }
 
-
        .modal-title {
            font-weight: bold;
            font-size: 16px;
            margin-bottom: 10px;
            color: #d35400;
        }
-
 
        .modal-btn {
            background: #d35400;
@@ -534,9 +442,7 @@ Bạn copy toàn bộ code của từng file dưới đây và dán đè (thay t
            font-weight: bold;
            cursor: pointer;
            width: 100%;
-           font-family: inherit;
        }
-
 
        #toast-container {
            position: fixed;
@@ -544,7 +450,6 @@ Bạn copy toàn bộ code của từng file dưới đây và dán đè (thay t
            right: 20px;
            z-index: 9999;
        }
-
 
        .toast {
            background: #27ae60;
@@ -557,114 +462,68 @@ Bạn copy toàn bộ code của từng file dưới đây và dán đè (thay t
            font-size: 14px;
        }
 
-
        @keyframes slideIn {
            from {
                transform: translateX(100%);
            }
-
 
            to {
                transform: translateX(0);
            }
        }
 
-
-       #global-note {
-           width: 100%;
-           margin-top: 5px;
-           padding: 8px;
-           font-size: 12px;
-           border: 1px solid #ccc;
-           border-radius: 4px;
-           resize: none;
-           outline: none;
-           font-family: inherit;
-           color: #333;
-       }
-
-
        /* MOBILE OPTIMIZATION */
        @media (max-width: 768px) {
            .header .search-container {
-               width: 120px;
+               display: none;
            }
-
 
            .main-container {
                flex-direction: column;
            }
 
-
-           .sticky-nav {
-               top: 70px;
-               padding: 10px 0;
-           }
-
-
            .sidebar {
-               position: fixed !important;
+               position: fixed;
                bottom: 0;
                left: 0;
                width: 100%;
+               height: 60px;
                z-index: 2500;
                margin-top: 0;
-               border-radius: 20px 20px 0 0;
-               height: 65px;
-               transition: height 0.4s ease-in-out;
-               background: #fff;
-               box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.2);
-               top: auto;
+               border-radius: 15px 15px 0 0;
+               transition: height 0.3s;
            }
-
 
            .sidebar.active {
-               height: 85vh;
-               overflow-y: auto;
+               height: 70vh;
            }
-
 
            .cart-header {
-               height: 65px;
                cursor: pointer;
-               background: #d35400 !important;
-               color: white;
-               border: none;
+               display: flex;
+               justify-content: space-between;
+               align-items: center;
+               height: 60px;
            }
-
-
-           .cart-header h3::after {
-               content: ' 🔼';
-               font-size: 12px;
-               margin-left: 8px;
-           }
-
-
-           .sidebar.active .cart-header h3::after {
-               content: ' 🔽';
-           }
-
 
            body {
-               padding-bottom: 80px;
+               padding-bottom: 60px;
            }
        }
 
-
        .nav-arrows {
            position: fixed;
-           right: 15px;
-           bottom: 85px;
+           right: 20px;
+           bottom: 80px;
            display: flex;
            flex-direction: column;
            gap: 10px;
            z-index: 1001;
        }
 
-
        .arrow-btn {
-           width: 45px;
-           height: 45px;
+           width: 40px;
+           height: 40px;
            background: #d35400;
            color: white;
            border-radius: 50%;
@@ -672,25 +531,17 @@ Bạn copy toàn bộ code của từng file dưới đây và dán đè (thay t
            align-items: center;
            justify-content: center;
            cursor: pointer;
-           box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+           box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
            border: none;
            font-weight: bold;
-           transition: 0.2s;
        }
-
-
-       .arrow-btn:active {
-           transform: scale(0.9);
-       }
-
 
        .btn-call {
-           background: #27ae60 !important;
-           font-size: 20px;
+           background: #27ae60;
+           font-size: 18px;
        }
    </style>
 </head>
-
 
 <body>
    <div id="toast-container"></div>
@@ -704,28 +555,19 @@ Bạn copy toàn bộ code của từng file dưới đây và dán đè (thay t
            </div>
        </div>
        <div class="right">
-           <div id="table-info"></div>
+           <div id="table-info">BÀN --</div>
            <div class="icon" onclick="toggleDark()">🌓</div>
            <img class="avatar" src="https://i.pravatar.cc/100">
        </div>
    </header>
 
-
-
-
-   <div class="banner" id="banner-slider-wrapper">
-       <div class="banner-container" id="banner-slider">
-           <img
-               src="https://raw.githubusercontent.com/DuongLQPTIT/pop-quan-an/refs/heads/main/661366807_4223851564532530_1368547044873374033_n.png">
-           <img src="https://github.com/DuongLQPTIT/pop-quan-an/blob/main/2.jpg?raw=true">
-           <img src="https://github.com/DuongLQPTIT/pop-quan-an/blob/main/3.jpg?raw=true">
-           <img src="https://github.com/DuongLQPTIT/pop-quan-an/blob/main/4.jpg?raw=true">
-           <img src="https://github.com/DuongLQPTIT/pop-quan-an/blob/main/5.jpg?raw=true">
+   <div class="banner-container">
+       <div class="banner-slider" id="bannerSlider">
+           <img class="banner-slide" src="https://mms.img.susercontent.com/vn-11134513-7r98o-lsxlwveb90p9e9_xxhd">
+           <img class="banner-slide" src="https://mms.img.susercontent.com/vn-11134513-7r98o-lsxlwveatbydc9_xxhd">
+           <img class="banner-slide" src="https://mms.img.susercontent.com/vn-11134513-7r98o-lsxlwveb3v1pc2_xxhd">
        </div>
    </div>
-
-
-
 
    <main class="main-container">
        <section class="content-area">
@@ -739,37 +581,25 @@ Bạn copy toàn bộ code của từng file dưới đây và dán đè (thay t
            <div class="article-grid" id="menu-grid"></div>
        </section>
 
-
-
-
-       <aside class="sidebar" id="mobile-sidebar">
-           <div class="cart-header" onclick="toggleMobileCart()">
+       <aside class="sidebar" id="mobile-sidebar" onclick="toggleMobileCart()">
+           <div class="cart-header">
                <h3>Món đã chọn (<span id="count-items">0</span>)</h3>
-               <span style="font-size: 12px; color: inherit; cursor: pointer; text-decoration: underline;"
-                   onclick="event.stopPropagation(); clearCart();">Xóa tất cả</span>
            </div>
-           <div class="cart-section">
+           <div class="cart-section" onclick="event.stopPropagation()">
                <div id="cart-list"></div>
            </div>
-           <div class="takeaway-area" style="padding: 0 15px;">
-               <label style="font-size: 11px; font-weight: bold; color: #d35400;">Ghi chú / khác:</label>
-               <textarea id="global-note" rows="2"
-                   placeholder=" Quý khách mua mang về tất cả ghi chú tại đây..."></textarea>
-           </div>
-           <footer class="footer-payment">
+           <div class="right-panel" onclick="event.stopPropagation()">
+               <textarea rows="2" style="width:100%; padding:8px; border-radius:5px; border:1px solid #ddd; resize:none;" placeholder="Ghi chú đơn hàng (ví dụ: mang về, ít cay...)"></textarea>
                <div class="total"><span>Tổng cộng:</span><span id="final-total">0VND</span></div>
                <button class="submit-btn" onclick="showInvoice()">Đến bước thanh toán →</button>
-           </footer>
+           </div>
        </aside>
    </main>
-
-
-
 
    <div id="invoice-modal">
        <div class="invoice-content">
            <div style="text-align: center;">
-               <h2 style="margin:0; font-family: inherit;">HÓA ĐƠN</h2>
+               <h2 style="margin:0;">HÓA ĐƠN</h2>
                <p>------------------------------</p>
            </div>
            <table class="invoice-table">
@@ -801,9 +631,6 @@ Bạn copy toàn bộ code của từng file dưới đây và dán đè (thay t
        </div>
    </div>
 
-
-
-
    <div class="modal-overlay" id="orderModal">
        <div class="modal-box">
            <div class="modal-icon">✓</div>
@@ -814,63 +641,14 @@ Bạn copy toàn bộ code của từng file dưới đây và dán đè (thay t
        </div>
    </div>
 
-
-
-
    <div class="nav-arrows">
-       <button class="arrow-btn btn-call" onclick="callStaff()" title="Gọi phục vụ">🔔</button>
+       <button class="arrow-btn btn-call" onclick="callStaff()">🔔</button>
        <button class="arrow-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">▲</button>
        <button class="arrow-btn"
            onclick="document.getElementById('menu-grid').scrollIntoView({behavior: 'smooth', block: 'end'})">▼</button>
    </div>
 
-
-
-
-   <footer
-       style="background: #001a33; color: white; text-align: center; padding: 20px; margin-top: 30px; font-size: 13px; line-height: 1.6;">
-       <p>📍 Địa chỉ: 12B Thị Xá, Gia Phúc, TP Hải Phòng</p>
-       <p>📞 <b>Hotline:</b> 0356 378 392 | <b>Email:</b> bepviet.info@gmail.com</p>
-       <p style="opacity: 0.7; margin-top: 10px;"> © 2026 Bep Viet Restaurant. All rights reserved.</p>
-   </footer>
-
-
-
-
-   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
    <script>
-       // Khởi tạo Firebase kết nối đám mây Realtime Database
-       const firebaseConfig = {
-           databaseURL: "https://quan-li-nha-hang-bep-viet-default-rtdb.firebaseio.com/"
-       };
-       if (!firebase.apps.length) {
-           firebase.initializeApp(firebaseConfig);
-       }
-       const serverDatabase = firebase.database();
-
-       // Tự động nhận số bàn từ đường link Web (Ví dụ: Bao.html?Table=2)
-       let soBanRealtime = "1";
-       const paramsRealtime = new URLSearchParams(window.location.search);
-       if (paramsRealtime.get("Table")) {
-           soBanRealtime = paramsRealtime.get("Table");
-       }
-
-       // Hàm đồng bộ giỏ hàng thời gian thực lên Firebase
-       function dongBoFirebase() {
-           const processedCart = cart.map(item => ({
-               id: item.id,
-               name: item.name,
-               price: item.price,
-               qty: item.qty,
-               note: item.note || ""
-           }));
-           serverDatabase.ref('tables/ban_' + parseInt(soBanRealtime)).set({
-               cart: processedCart,
-               note: document.getElementById('global-note').value || ""
-           });
-       }
-
        const BANK_ID = "MB";
        const ACCOUNT_NO = "0862976818";
        const ACCOUNT_NAME = "NGUYEN QUOC BAO";
@@ -883,7 +661,7 @@ Bạn copy toàn bộ code của từng file dưới đây và dán đè (thay t
            { id: 106, type: 'main', name: "BÚN ĐẬU MẮM TÔM", price: 59000, img: "https://i-giadinh.vnecdn.net/2025/05/16/Bun-dau-mam-tom-6-vnexpress-17-9082-8722-1747388531.jpg" },
            { id: 107, type: 'main', name: "BÁNH MÌ", price: 25000, img: "https://cdn-i2.congthuong.vn/stores/news_dataimages/2024/032024/16/09/top-1-mon-sandwich-ngon-nhat-the-gioi-goi-ten-banh-my-viet-nam1710498007-182420240316092132.jpg?rt=20240316092204" },
            { id: 108, type: 'main', name: "BÚN CHẢ", price: 39000, img: "https://cooponline.vn/tin-tuc/wp-content/uploads/2025/10/hoc-cach-lam-bun-cha-mien-bac-chuan-ha-noi-tai-nha.png" },
-           { id: 109, type: 'main', name: "PHỞ CUỐN", price: 59000, img: "https://cdnv2.tgdd.vn/mwg-static/common/Common/H%C3%ACnh%20m%C3%B3n%20an%20t11%20%281200%20x%20676%20px%29%20-%202025-11-24T103337.919.jpg" },
+           { id: 109, type: 'main', name: "PHỞ CUỐN", price: 59000, img: "https://cdnv2.tgdd.vn/mwg-static/common/Common/H%C3%A2n%20m%C3%B3n%20an%20t11%20%281200%20x%20676%20px%29%20-%202025-11-24T103337.919.jpg" },
            { id: 110, type: 'main', name: "NEM NƯỚNG", price: 49000, img: "https://www.cleanipedia.com/images/5iwkm8ckyw6v/jLmMMPcXosJS3bzHN3VOM/00f5ae7421ecd5584451438559d86b50/Y2FjaC1sYW0tbmVtLW51b25nLmpwZw/1200w/m%E1%BB%99t-%C4%91%C4%A9a-th%E1%BB%A9c-%C4%83n-vi%E1%BB%87t-nam-v%E1%BB%9Bi-ch%E1%BA%A3-gi%C3%B2%2C-nem-n%C6%B0%E1%BB%9Bng%2C-rau-s%E1%BB%91ng-v%C3%A0-n%C6%B0%E1%BB%9Bc-ch%E1%BA%A5m..jpg" },
            { id: 201, type: 'drink', name: "TRÀ ĐÀO CAM SẢ", price: 35000, img: "https://cdn-merchant.vinid.net/images/gallery/vinshop-seo/1749515439_cong-thuc-pha-tra-dao-cam-sa-3.jpg" },
            { id: 202, type: 'drink', name: "CÀ PHÊ MUỐI", price: 30000, img: "https://cubes-asia.com/storage/blogs/2024-12/cach-lam-ca-phe-muoi-nguyen-lieu-cong-thuc-lam.jpg" },
@@ -904,16 +682,82 @@ Bạn copy toàn bộ code của từng file dưới đây và dán đè (thay t
            { id: 307, type: 'dessert', name: "BÁNH FLAN", price: 25000, img: "https://www.huongnghiepaau.com/wp-content/uploads/2019/04/cach-lam-banh-flan-pho-mai.jpg" },
            { id: 308, type: 'dessert', name: "RAU CAU", price: 20000, img: "https://cdn2.fptshop.com.vn/unsafe/1920x0/filters:format(webp):quality(75)/2024_1_18_638412156621577284_cach-nau-rau-cau.jpg" },
            { id: 309, type: 'dessert', name: "BÁNH PÍA", price: 25000, img: "https://banhbaominh.com/wp-content/uploads/2023/08/kham-pha-huong-vi-banh-pia-soc-trang-banh-pia-soc-trang1.jpeg" },
-           { id: 310, type: 'dessert', name: "BÁNH ÍT TRẦN", price: 25000, img: "https://cdn.eva.vn/upload/4-2021/images/2021-10-21/image8-1634782289-902-width650height460.jpg" },
+           { id: 310, type: 'dessert', name: "BÁNH ÍT TRẦN", price: 25000, img: "https://cdn.eva.vn/upload/4-2021/images/2021-10-21/image8-1634782289-902-width650height460.jpg" }
        ];
+
        let cart = [];
+       let totalPrice = 0;
+       let tableNo = "1"; // Mặc định nếu link không có ?Table= thì là bàn 1
        let timerInterval;
        let currentCategory = 'main';
 
+       let currentIndex = 0;
+       const slider = document.getElementById('bannerSlider');
+       const slides = document.querySelectorAll('.banner-slide');
 
+       function nextSlide() {
+           currentIndex = (currentIndex + 1) % slides.length;
+           setSliderPosition();
+       }
 
+       function setSliderPosition() {
+           const width = slider.clientWidth;
+           const offset = -currentIndex * width;
+           slider.style.transition = 'transform 0.8s ease-in-out';
+           slider.style.transform = `translateX(${offset}px)`;
+       }
+
+       window.addEventListener('resize', setSliderPosition);
+       setInterval(nextSlide, 3000);
+
+       window.onload = function () {
+           // Khởi động kết nối Firebase
+           const firebaseConfig = {
+               databaseURL: "https://quan-li-nha-hang-bep-viet-default-rtdb.firebaseio.com/"
+           };
+           if (!firebase.apps.length) {
+               firebase.initializeApp(firebaseConfig);
+           }
+           window.serverDatabase = firebase.database();
+           console.log("Firebase đã kết nối thành công tại trang Khách!");
+
+           // Lấy tham số bàn từ URL
+           const params = new URLSearchParams(window.location.search);
+           tableNo = params.get("Table") || "1"; 
+           document.getElementById("table-info").innerText = " BÀN " + tableNo;
+           
+           filterMenu('main', document.querySelector('.top-menu-item'));
+       };
+
+       // Hàm gửi đơn hàng lên máy chủ Firebase Realtime Database
+       function guiDonHang() {
+           if (!window.serverDatabase) {
+               console.error("Chưa kết nối Firebase");
+               return;
+           }
+
+           const keyBan = "ban_" + parseInt(tableNo);
+           const noteChung = document.querySelector('.right-panel textarea')?.value || "";
+
+           // Đóng gói thông tin đúng chuẩn cấu trúc mà file "chạy thử.html" cần đọc
+           const thongTinDonHang = {
+               cart: cart,
+               totalPrice: totalPrice,
+               note: noteChung
+           };
+
+           // Đẩy trực tiếp lên nút nhánh bàn tương ứng trên Database
+           window.serverDatabase.ref('tables/' + keyBan).set(thongTinDonHang)
+           .then(() => {
+               console.log("Đã đồng bộ đơn hàng lên Firebase thành công!");
+           })
+           .catch((error) => {
+               console.error("Lỗi đồng bộ Firebase: ", error);
+           });
+       }
 
        function toggleDark() { document.body.classList.toggle("dark"); }
+
        function showToast(msg) {
            const container = document.getElementById('toast-container');
            const t = document.createElement('div');
@@ -921,6 +765,7 @@ Bạn copy toàn bộ code của từng file dưới đây và dán đè (thay t
            container.appendChild(t);
            setTimeout(() => { t.style.opacity = '0'; setTimeout(() => t.remove(), 500); }, 2000);
        }
+
        function filterMenu(type, element) {
            currentCategory = type;
            document.getElementById('search-input').value = "";
@@ -928,6 +773,7 @@ Bạn copy toàn bộ code của từng file dưới đây và dán đè (thay t
            if (element) element.classList.add('active');
            renderMenu(menuData.filter(m => m.type === type));
        }
+
        function searchFood(val) {
            const keyword = val.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "").replace(/đ/g, "d");
            if (!keyword) return filterMenu(currentCategory, document.querySelector(`.top-menu-item[onclick*='${currentCategory}']`));
@@ -935,6 +781,7 @@ Bạn copy toàn bộ code của từng file dưới đây và dán đè (thay t
            const filtered = menuData.filter(item => item.name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "").replace(/đ/g, "d").includes(keyword));
            renderMenu(filtered);
        }
+
        function renderMenu(items) {
            const grid = document.getElementById('menu-grid');
            if (items.length === 0) {
@@ -942,101 +789,96 @@ Bạn copy toàn bộ code của từng file dưới đây và dán đè (thay t
                return;
            }
            grid.innerHTML = items.map(item => `
-           <div class="article-card">
-               <img src="${item.img}" class="img" onerror="this.src='https://via.placeholder.com/150?text=Food'">
-               <h4 class="article-title">${item.name}</h4>
-               <p class="article-desc">${item.price.toLocaleString()} VND</p>
-               <a href="javascript:void(0)" class="btn-more" onclick="addToCart(${item.id})">THÊM MÓN</a>
-           </div>
-       `).join('');
+               <div class="article-card">
+                   <img src="${item.img}" class="img" onerror="this.src='https://via.placeholder.com/150?text=Food'">
+                   <h4 class="article-title">${item.name}</h4>
+                   <p class="article-desc">${item.price.toLocaleString()} VND</p>
+                   <a href="javascript:void(0)" class="btn-more" onclick="addToCart(${item.id})">THÊM MÓN</a>
+               </div>
+           `).join('');
        }
+
        function addToCart(id) {
            const product = menuData.find(p => p.id === id);
            const inCart = cart.find(c => c.id === id);
-           if (inCart) inCart.qty++; else cart.push({ ...product, qty: 1, note: "" });
+           if (inCart) inCart.qty++; else cart.push({ ...product, qty: 1 });
            renderCart();
            showToast(`Đã thêm ${product.name}`);
-           dongBoFirebase(); // Đồng bộ Realtime lên Firebase
        }
+
        function updateQty(id, change) {
            const item = cart.find(i => i.id === id);
            if (item) {
                item.qty += change;
                if (item.qty <= 0) cart = cart.filter(i => i.id !== id);
                renderCart();
-               dongBoFirebase(); // Đồng bộ Realtime lên Firebase
-           }
-       }
-       function clearCart() {
-           if (confirm("Bạn muốn xóa toàn bộ giỏ hàng?")) {
-               cart = [];
-               renderCart();
-               dongBoFirebase(); // Đồng bộ Realtime lên Firebase
-           }
-       }
-       function renderCart() {
-           const list = document.getElementById('cart-list');
-           let total = 0;
-           if (cart.length === 0) {
-               list.innerHTML = `<p style="text-align:center; color:#999; font-size:14px; padding: 20px;">Giỏ hàng của bạn đang trống</p>`;
-           } else {
-               list.innerHTML = cart.map(item => {
-                   total += item.price * item.qty;
-                   return `<div class="item">
-                   <img src="${item.img}" class="item-img" onerror="this.src='https://via.placeholder.com/50'">
-                   <div style="flex:1">
-                       <div style="font-weight:bold; font-size:13px;">${item.name}</div>
-                       <input type="text" style="width: 100%; margin-top: 5px; padding: 4px; font-size: 11px; border: 1px solid #eee; border-radius: 4px; outline: none; color: #d35400; font-family: inherit;" placeholder="Ghi chú (VD: Muốn mang về X phần; ít cay...)" oninput="updateItemNote(${item.id}, this.value)" value="${item.note || ''}">
-                       <div style="display:flex; align-items:center; gap:8px; margin-top:3px;">
-                           <button class="btn-qty" onclick="updateQty(${item.id}, -1)">-</button>
-                           <span>${item.qty}</span>
-                           <button class="btn-qty" onclick="updateQty(${item.id}, 1)">+</button>
-                       </div>
-                   </div>
-                   <b style="font-size:13px;">${(item.price * item.qty).toLocaleString()}VND</b>
-               </div>`;
-               }).join('');
-           }
-           document.getElementById('final-total').innerText = total.toLocaleString() + 'VND';
-           document.getElementById('count-items').innerText = cart.reduce((sum, item) => sum + item.qty, 0);
-       }
-       function updateItemNote(id, val) {
-           const item = cart.find(i => i.id === id);
-           if (item) {
-               item.note = val;
-               dongBoFirebase(); // Đồng bộ Realtime lên Firebase khi gõ note món
            }
        }
 
-       // Lắng nghe ghi chú chung mua mang về
-       document.getElementById('global-note').addEventListener('input', dongBoFirebase);
+       function renderCart() {
+           const list = document.getElementById('cart-list');
+           totalPrice = 0;
+           if (cart.length === 0) {
+               list.innerHTML = `<p style="text-align:center; color:#999; font-size:14px; padding: 20px;">Giỏ hàng trống</p>`;
+           } else {
+               list.innerHTML = cart.map(item => {
+                   totalPrice += item.price * item.qty;
+                   return `<div class="item">
+                       <img src="${item.img}" class="item-img" onerror="this.src='https://via.placeholder.com/50'">
+                       <div style="flex:1">
+                           <div style="font-weight:bold; font-size:13px;">${item.name}</div>
+                           <div style="display:flex; align-items:center; gap:8px; margin-top:5px;">
+                               <button class="btn-qty" onclick="updateQty(${item.id}, -1)">-</button>
+                               <span>${item.qty}</span>
+                               <button class="btn-qty" onclick="updateQty(${item.id}, 1)">+</button>
+                           </div>
+                       </div>
+                       <b style="font-size:13px;">${(item.price * item.qty).toLocaleString()}VND</b>
+                   </div>`;
+               }).join('');
+           }
+           document.getElementById('final-total').innerText = totalPrice.toLocaleString() + 'VND';
+           document.getElementById('count-items').innerText = cart.reduce((sum, item) => sum + item.qty, 0);
+       }
 
        function showInvoice() {
            if (cart.length === 0) return alert("Hãy chọn món trước khi thanh toán nhé!");
+           
+           // CHỈNH SỬA CHỐT: Gọi kích hoạt đồng bộ đơn hàng lên Firebase khi khách mở hóa đơn
+           guiDonHang();
+
            document.getElementById('mobile-sidebar').classList.remove('active');
            const invoiceModal = document.getElementById('invoice-modal');
            let total = 0;
            let itemsHtml = cart.map(item => {
                total += item.price * item.qty;
-               const noteRieng = item.note ? ` (${item.note})` : "";
-               return `<tr><td>${item.name}${noteRieng}</td><td class="col-price">${item.price / 1000}k</td><td class="col-qty">${item.qty}</td><td class="col-total">${((item.price * item.qty) / 1000)}k</td></tr>`;
+               return `<tr><td>${item.name}</td><td class="col-price">${(item.price / 1000)}k</td><td class="col-qty">${item.qty}</td><td class="col-total">${(item.price * item.qty).toLocaleString()}</td></tr>`;
            }).join('');
+           
+           const noteChung = document.querySelector('.right-panel textarea').value.trim();
+           if (noteChung) itemsHtml += `<tr><td colspan="4" style="font-size:11px; color:gray; padding-top:5px;">Ghi chú: ${noteChung}</td></tr>`;
+           
            document.getElementById('invoice-items').innerHTML = itemsHtml;
-           document.getElementById('invoice-total').innerText = total.toLocaleString() + 'VND';
-           document.getElementById('acc-name').innerText = "STK: " + ACCOUNT_NO + " - " + ACCOUNT_NAME;
+           document.getElementById('invoice-total').innerText = total.toLocaleString() + " VND";
+           document.getElementById('acc-name').innerText = ACCOUNT_NAME;
            invoiceModal.style.display = 'flex';
-           document.getElementById('qr-code').style.display = 'none';
+
+           // TẠO LẠI ĐƯỜNG DẪN QR CHUẨN XÁC KHÔNG DÙNG ĐỊNH DẠNG 'k' CHO TIỀN
+           const noiDungChuyenKhoan = `Thanh toan BAN ${tableNo}`;
+           const qrImg = document.getElementById('qr-code');
+           // Dùng trực tiếp số biến 'total' đầy đủ chữ số gửi qua API VietQR
+           const qrUrl = `https://img.vietqr.io/image/${BANK_ID}-${ACCOUNT_NO}-qr_only.png?amount=${total}&addInfo=${encodeURIComponent(noiDungChuyenKhoan)}`;
+
            document.getElementById('qr-loading').style.display = 'block';
-           const qrUrl = `https://img.vietqr.io/image/${BANK_ID}-${ACCOUNT_NO}-qr_only.png?amount=${total}&addInfo=BAN%20${soBanRealtime}%20THANH%20TOAN`;
-           const img = new Image();
-           img.onload = function () {
+           qrImg.style.display = 'none';
+           qrImg.src = qrUrl;
+           qrImg.onload = () => {
                document.getElementById('qr-loading').style.display = 'none';
-               const qrImg = document.getElementById('qr-code');
-               qrImg.src = qrUrl; qrImg.style.display = 'block';
+               qrImg.style.display = 'block';
                startTimer(300);
            };
-           img.src = qrUrl;
        }
+
        function startTimer(t) {
            clearInterval(timerInterval);
            const display = document.getElementById('timer-display');
@@ -1046,111 +888,27 @@ Bạn copy toàn bộ code của từng file dưới đây và dán đè (thay t
                if (--t < 0) { clearInterval(timerInterval); display.innerText = "Mã QR đã hết hạn."; }
            }, 1000);
        }
+
        function closeInvoice() {
            document.getElementById('invoice-modal').style.display = 'none';
            document.getElementById('orderModal').style.display = 'flex';
        }
+
        function closeOrderModal() {
            document.getElementById('orderModal').style.display = 'none';
            cart = [];
-           document.getElementById('global-note').value = "";
+           document.querySelector('.right-panel textarea').value = "";
            renderCart();
-           dongBoFirebase(); // Đồng bộ dọn dẹp giỏ trống lên server sau khi hoàn thành đơn
            clearInterval(timerInterval);
            window.scrollTo({ top: 0, behavior: 'smooth' });
        }
+
        function toggleMobileCart() {
            if (window.innerWidth <= 768) document.getElementById('mobile-sidebar').classList.toggle('active');
        }
-       function callStaff() { 
-           alert("Hệ thống đã báo nhân viên tới bàn phục vụ!"); 
-       }
 
-
-       // BANNER SLIDER LOGIC
-       let currentIndex = 0;
-       const slider = document.getElementById('banner-slider');
-       const images = slider.getElementsByTagName('img');
-       function nextSlide() { currentIndex = (currentIndex + 1) % images.length; setSliderPosition(); }
-       setInterval(nextSlide, 3000);
-       function setSliderPosition() {
-           const width = document.getElementById('banner-slider-wrapper').offsetWidth;
-           const offset = -currentIndex * width;
-           slider.style.transition = 'transform 0.8s ease-in-out';
-           slider.style.transform = `translateX(${offset}px)`;
-       }
-
-
-       window.addEventListener('resize', setSliderPosition);
-       renderMenu(menuData.filter(m => m.type === 'main'));
-       renderCart();
-       window.onload = function () {
-           if (paramsRealtime.get("Table")) {
-               document.getElementById("table-info").innerText = " BÀN " + paramsRealtime.get("Table");
-           }
-           filterMenu('main', document.querySelector('.top-menu-item'));
-       };
+       function callStaff() { alert("Đang gọi nhân viên phục vụ tới bàn " + tableNo); }
    </script>
 </body>
+
 </html>
-
-```
-
----
-
-### 2. File hoàn chỉnh cho `chạy thử.html` (Trang sơ đồ Admin)
-
-Dương hãy mở file `chạy thử.html` lên, kéo xuống **dưới cùng file**, dán đoạn code "lắng nghe tự động" này vào **ngay trước thẻ đóng `</body>**` là xong nhé:
-
-```html
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
-
-<script>
-  const adminFirebaseConfig = {
-      databaseURL: "https://quan-li-nha-hang-bep-viet-default-rtdb.firebaseio.com/"
-  };
-  if (!firebase.apps.length) {
-      firebase.initializeApp(adminFirebaseConfig);
-  }
-  const adminDatabase = firebase.database();
-
-  // Tự động lắng nghe và nạp dữ liệu từ Firebase về hệ thống mảng bàn có sẵn của bạn
-  adminDatabase.ref('tables').on('value', (snapshot) => {
-      const allTablesData = snapshot.val();
-      if (allTablesData && window.restaurantTables) {
-          
-          Object.keys(allTablesData).forEach((keyBan) => {
-              const dataBan = allTablesData[keyBan];
-              const idBan = parseInt(keyBan.replace("ban_", ""));
-              
-              // Tìm đúng bàn khớp ID trong mảng code cũ của bạn
-              const targetTable = window.restaurantTables.find(t => t.id === idBan);
-              
-              if (targetTable) {
-                  if (dataBan.cart && dataBan.cart.length > 0) {
-                      targetTable.cart = dataBan.cart;
-                      targetTable.note = dataBan.note || "";
-                      targetTable.status = "occupied"; // Chuyển bàn sang màu đỏ (Có khách) theo CSS cũ của bạn
-                  } else {
-                      // Nếu giỏ hàng trống, đưa trạng thái bàn về Trống ban đầu
-                      targetTable.cart = [];
-                      targetTable.note = "";
-                      targetTable.status = "empty"; 
-                  }
-              }
-          });
-
-          // Tự động gọi lại 2 hàm vẽ giao diện của admin để cập nhật sơ đồ thời gian thực
-          if (typeof renderTablesLayout === "function") renderTablesLayout();
-          if (typeof renderCart === "function") renderCart();
-          
-          console.log("Đã đồng bộ cập nhật trạng thái các bàn từ Firebase thành công!");
-      }
-  });
-</script>
-</body>
-
-```
-
-Bây giờ bạn lưu lại 2 file, mở `Bao.html?Table=1` và `chạy thử.html` song song lên là trải nghiệm được tính năng đồng bộ rồi đó!
