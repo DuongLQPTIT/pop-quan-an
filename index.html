@@ -1,12 +1,13 @@
-]<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
+
+
+
 
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>DEMO - SMART MENU</title>
-   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
    <style>
        * {
            box-sizing: border-box;
@@ -15,6 +16,9 @@
            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif, Arial, "Helvetica Neue", sans-serif;
        }
 
+
+
+
        body {
            background: #f4f4f4;
            color: #333;
@@ -22,10 +26,16 @@
            overflow-y: auto;
        }
 
+
+
+
        body.dark {
            background: #121212;
            color: white;
        }
+
+
+
 
        /* HEADER & BANNER */
        .header {
@@ -41,10 +51,16 @@
            z-index: 2000;
        }
 
+
+
+
        body.dark .header {
            background: #1f1f1f;
            border-color: #333;
        }
+
+
+
 
        .left,
        .right {
@@ -53,10 +69,16 @@
            gap: 12px;
        }
 
+
+
+
        .logo {
            height: 40px;
            border-radius: 5px;
        }
+
+
+
 
        .avatar {
            width: 40px;
@@ -64,6 +86,9 @@
            border-radius: 50%;
            border: 2px solid #d35400;
        }
+
+
+
 
        .icon {
            width: 35px;
@@ -76,9 +101,15 @@
            cursor: pointer;
        }
 
+
+
+
        body.dark .icon {
            background: #2a2a2a;
        }
+
+
+
 
        /* CẤU TRÚC SEARCH TRÊN HEADER */
        .search-container {
@@ -92,10 +123,16 @@
            transition: 0.3s;
        }
 
+
+
+
        body.dark .search-container {
            background: #2a2a2a;
            border-color: #444;
        }
+
+
+
 
        #search-input {
            border: none;
@@ -106,6 +143,9 @@
            width: 100%;
            font-family: inherit;
        }
+
+
+
 
        /* BANNER SLIDER */
        .banner {
@@ -121,6 +161,9 @@
            height: 300px;
        }
 
+
+
+
        .banner-container {
            display: flex;
            width: 100%;
@@ -128,6 +171,9 @@
            user-select: none;
            pointer-events: none;
        }
+
+
+
 
        .banner-container img {
            min-width: 100%;
@@ -137,16 +183,25 @@
            background-color: transparent;
        }
 
+
+
+
        #table-info {
            position: relative;
+           /* Đổi từ absolute sang relative để nó tự tìm chỗ trống */
            left: auto;
            transform: none;
            font-weight: bold;
            color: #d35400;
            font-size: 0.95rem;
+           /* Giảm nhẹ để vừa màn hình đt */
            white-space: nowrap;
            margin-right: 5px;
+           /* Tạo khoảng cách với icon trăng khuyết */
        }
+
+
+
 
        /* MAIN LAYOUT */
        .main-container {
@@ -157,10 +212,16 @@
            align-items: flex-start;
        }
 
+
+
+
        .content-area {
            flex: 3;
            min-height: 100vh;
        }
+
+
+
 
        /* TABS CỐ ĐỊNH KHI CUỘN */
        .sticky-nav {
@@ -174,9 +235,15 @@
            gap: 10px;
        }
 
+
+
+
        body.dark .sticky-nav {
            background: #121212;
        }
+
+
+
 
        .top-menu {
            display: flex;
@@ -187,9 +254,15 @@
            width: fit-content;
        }
 
+
+
+
        body.dark .top-menu {
            background: #2a2a2a;
        }
+
+
+
 
        .top-menu-item {
            text-decoration: none;
@@ -202,14 +275,23 @@
            transition: 0.3s;
        }
 
+
+
+
        body.dark .top-menu-item {
            color: #bbb;
        }
+
+
+
 
        .top-menu-item.active {
            background: #d35400 !important;
            color: white !important;
        }
+
+
+
 
        /* GRID */
        .article-grid {
@@ -219,6 +301,9 @@
            padding-bottom: 50px;
        }
 
+
+
+
        .article-card {
            background: white;
            padding: 10px;
@@ -227,13 +312,22 @@
            transition: 0.3s;
        }
 
+
+
+
        .article-card:hover {
            transform: translateY(-5px);
        }
 
+
+
+
        body.dark .article-card {
            background: #1e1e1e;
        }
+
+
+
 
        .img {
            width: 100%;
@@ -243,6 +337,9 @@
            background: #eee;
        }
 
+
+
+
        .article-title {
            margin: 10px 0 5px;
            font-size: 0.95rem;
@@ -251,11 +348,17 @@
            font-weight: bold;
        }
 
+
+
+
        .article-desc {
            color: #d35400;
            margin-bottom: 10px;
            font-weight: bold;
        }
+
+
+
 
        .btn-more {
            display: block;
@@ -269,6 +372,9 @@
            font-weight: bold;
        }
 
+
+
+
        /* SIDEBAR */
        .sidebar {
            flex: 1.2;
@@ -281,9 +387,15 @@
            z-index: 900;
        }
 
+
+
+
        body.dark .sidebar {
            background: #1e1e1e;
        }
+
+
+
 
        .cart-header {
            padding: 15px;
@@ -294,10 +406,16 @@
            align-items: center;
        }
 
+
+
+
        body.dark .cart-header {
            background: #252525;
            border-color: #333;
        }
+
+
+
 
        .cart-section {
            padding: 15px;
@@ -305,10 +423,16 @@
            overflow-y: auto;
        }
 
+
+
+
        .footer-payment {
            padding: 15px;
            border-top: 1px solid #eee;
        }
+
+
+
 
        .total {
            font-weight: bold;
@@ -318,6 +442,9 @@
            justify-content: space-between;
            margin-top: 10px;
        }
+
+
+
 
        .submit-btn {
            width: 100%;
@@ -332,6 +459,9 @@
            font-family: inherit;
        }
 
+
+
+
        .item {
            display: flex;
            margin-bottom: 15px;
@@ -339,12 +469,18 @@
            gap: 10px;
        }
 
+
+
+
        .item-img {
            width: 45px;
            height: 45px;
            border-radius: 5px;
            object-fit: cover;
        }
+
+
+
 
        .btn-qty {
            width: 22px;
@@ -354,6 +490,9 @@
            border-radius: 50%;
            cursor: pointer;
        }
+
+
+
 
        /* MODALS & TOAST */
        #invoice-modal,
@@ -371,6 +510,9 @@
            padding: 20px;
        }
 
+
+
+
        .invoice-content {
            background: white;
            padding: 20px;
@@ -382,6 +524,9 @@
            overflow-y: auto;
        }
 
+
+
+
        .invoice-table {
            width: 100%;
            border-collapse: collapse;
@@ -389,24 +534,39 @@
            margin: 10px 0;
        }
 
+
+
+
        .invoice-table th {
            border-bottom: 1px dashed #000;
            padding: 5px 0;
            text-align: left;
        }
 
+
+
+
        .col-name {
            width: 45%;
        }
+
+
+
 
        .col-price,
        .col-qty {
            text-align: center;
        }
 
+
+
+
        .col-total {
            text-align: right;
        }
+
+
+
 
        .total-row {
            border-top: 1px dashed #000;
@@ -414,6 +574,9 @@
            margin-top: 10px;
            padding-top: 5px;
        }
+
+
+
 
        .close-invoice {
            margin-top: 20px;
@@ -428,6 +591,9 @@
            font-family: inherit;
        }
 
+
+
+
        .modal-box {
            background: white;
            width: 100%;
@@ -437,6 +603,9 @@
            text-align: center;
            color: #333;
        }
+
+
+
 
        .modal-icon {
            width: 50px;
@@ -451,12 +620,18 @@
            margin: 0 auto 15px;
        }
 
+
+
+
        .modal-title {
            font-weight: bold;
            font-size: 16px;
            margin-bottom: 10px;
            color: #d35400;
        }
+
+
+
 
        .modal-btn {
            background: #d35400;
@@ -470,12 +645,18 @@
            font-family: inherit;
        }
 
+
+
+
        #toast-container {
            position: fixed;
            top: 85px;
            right: 20px;
            z-index: 9999;
        }
+
+
+
 
        .toast {
            background: #27ae60;
@@ -488,15 +669,24 @@
            font-size: 14px;
        }
 
+
+
+
        @keyframes slideIn {
            from {
                transform: translateX(100%);
            }
 
+
+
+
            to {
                transform: translateX(0);
            }
        }
+
+
+
 
        #global-note {
            width: 100%;
@@ -511,20 +701,32 @@
            color: #333;
        }
 
+
+
+
        /* MOBILE OPTIMIZATION */
        @media (max-width: 768px) {
            .header .search-container {
                width: 120px;
            }
 
+
+
+
            .main-container {
                flex-direction: column;
            }
+
+
+
 
            .sticky-nav {
                top: 70px;
                padding: 10px 0;
            }
+
+
+
 
            .sidebar {
                position: fixed !important;
@@ -541,10 +743,16 @@
                top: auto;
            }
 
+
+
+
            .sidebar.active {
                height: 85vh;
                overflow-y: auto;
            }
+
+
+
 
            .cart-header {
                height: 65px;
@@ -554,20 +762,32 @@
                border: none;
            }
 
+
+
+
            .cart-header h3::after {
                content: ' 🔼';
                font-size: 12px;
                margin-left: 8px;
            }
 
+
+
+
            .sidebar.active .cart-header h3::after {
                content: ' 🔽';
            }
+
+
+
 
            body {
                padding-bottom: 80px;
            }
        }
+
+
+
 
        .nav-arrows {
            position: fixed;
@@ -578,6 +798,9 @@
            gap: 10px;
            z-index: 1001;
        }
+
+
+
 
        .arrow-btn {
            width: 45px;
@@ -595,9 +818,15 @@
            transition: 0.2s;
        }
 
+
+
+
        .arrow-btn:active {
            transform: scale(0.9);
        }
+
+
+
 
        .btn-call {
            background: #27ae60 !important;
@@ -605,6 +834,7 @@
        }
    </style>
 </head>
+
 
 <body>
    <div id="toast-container"></div>
@@ -624,11 +854,14 @@
        </div>
    </header>
 
+
    <div class="banner" >
        <div class="banner-container" >
            <img src="https://raw.githubusercontent.com/DuongLQPTIT/pop-quan-an/refs/heads/main/661366807_4223851564532530_1368547044873374033_n.png">
+           
        </div>
    </div>
+
 
    <main class="main-container">
        <section class="content-area">
@@ -642,6 +875,7 @@
            <div class="article-grid" id="menu-grid"></div>
        </section>
 
+
        <aside class="sidebar" id="mobile-sidebar">
            <div class="cart-header" onclick="toggleMobileCart()">
                <h3>Món đã chọn (<span id="count-items">0</span>)</h3>
@@ -653,7 +887,7 @@
            </div>
            <div class="takeaway-area" style="padding: 0 15px;">
                <label style="font-size: 11px; font-weight: bold; color: #d35400;">Ghi chú / khác:</label>
-               <textarea id="global-note" rows="2" oninput="dongBoFirebaseNgam()"
+               <textarea id="global-note" rows="2"
                    placeholder=" Quý khách mua mang về tất cả ghi chú tại đây..."></textarea>
            </div>
            <footer class="footer-payment">
@@ -662,6 +896,7 @@
            </footer>
        </aside>
    </main>
+
 
    <div id="invoice-modal">
        <div class="invoice-content">
@@ -698,6 +933,7 @@
        </div>
    </div>
 
+
    <div class="modal-overlay" id="orderModal">
        <div class="modal-box">
            <div class="modal-icon">✓</div>
@@ -708,6 +944,7 @@
        </div>
    </div>
 
+
    <div class="nav-arrows">
        <button class="arrow-btn btn-call" onclick="callStaff()" title="Gọi phục vụ">🔔</button>
        <button class="arrow-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">▲</button>
@@ -715,282 +952,229 @@
            onclick="document.getElementById('menu-grid').scrollIntoView({behavior: 'smooth', block: 'end'})">▼</button>
    </div>
 
+
    <footer
        style="background: #001a33; color: white; text-align: center; padding: 20px; margin-top: 30px; font-size: 13px; line-height: 1.6;">
        <p>📍 Địa chỉ: 12B Thị Xá, Gia Phúc, TP Hải Phòng</p>
        <p>📞 <b>Hotline:</b> 0356 378 392 | <b>Email:</b> bepviet.info@gmail.com</p>
        <p style="opacity: 0.7; margin-top: 10px;"> © 2026 Bep Viet Restaurant. All rights reserved.</p>
    </footer>
-<script>
-    // --- THIẾT LẬP CẤU HÌNH API FIREBASE REALTIME DATABASE ---
-    const FIREBASE_BASE_URL = "https://smart-menu-b8df2-default-rtdb.firebaseio.com";
 
-    // Khởi tạo SDK cũ (Giữ lại để không lỗi hệ thống cũ nếu cần)
-    const firebaseConfig = {
-        databaseURL: "https://smart-menu-b8df2-default-rtdb.firebaseio.com/"
-    };
-    if (!firebase.apps.length) {
-        firebase.initializeApp(firebaseConfig);
-    }
-    const serverDatabase = firebase.database();
 
-    let MA_SO_BAN = ""; 
+   <script>
+       const BANK_ID = "MB";
+       const ACCOUNT_NO = "0862976818";
+       const ACCOUNT_NAME = "NGUYEN QUOC BAO";
+       const menuData = [
+           { id: 101, type: 'main', name: "BÚN BÒ HUẾ", price: 69000, img: "https://kinhdoamthuc.com/wp-content/uploads/2023/07/bun-bo-hue-1_1628650972.jpg" },
+           { id: 102, type: 'main', name: "CƠM TẤM SƯỜN", price: 69000, img: "https://cafefcdn.com/203337114487263232/2022/12/7/photo-9-1670398141900764774990.jpg" },
+           { id: 103, type: 'main', name: "PHỞ HÀ NỘI", price: 59000, img: "https://static.vinwonders.com/production/optimize_pho-ha-noi-2.jpg" },
+           { id: 104, type: 'main', name: "BÁNH XÈO", price: 49000, img: "https://www.huongnghiepaau.com/wp-content/uploads/2017/02/cach-lam-banh-xeo-mien-trung.jpg" },
+           { id: 105, type: 'main', name: "GỎI CUỐN TÔM", price: 59000, img: "https://i.ytimg.com/vi/lAOHvUGfOdM/sddefault.jpg" },
+           { id: 106, type: 'main', name: "BÚN ĐẬU MẮM TÔM", price: 59000, img: "https://i-giadinh.vnecdn.net/2025/05/16/Bun-dau-mam-tom-6-vnexpress-17-9082-8722-1747388531.jpg" },
+           { id: 107, type: 'main', name: "BÁNH MÌ", price: 25000, img: "https://cdn-i2.congthuong.vn/stores/news_dataimages/2024/032024/16/09/top-1-mon-sandwich-ngon-nhat-the-gioi-goi-ten-banh-my-viet-nam1710498007-182420240316092132.jpg?rt=20240316092204" },
+           { id: 108, type: 'main', name: "BÚN CHẢ", price: 39000, img: "https://cooponline.vn/tin-tuc/wp-content/uploads/2025/10/hoc-cach-lam-bun-cha-mien-bac-chuan-ha-noi-tai-nha.png" },
+           { id: 109, type: 'main', name: "PHỞ CUỐN", price: 59000, img: "https://cdnv2.tgdd.vn/mwg-static/common/Common/H%C3%ACnh%20m%C3%B3n%20an%20t11%20%281200%20x%20676%20px%29%20-%202025-11-24T103337.919.jpg" },
+           { id: 110, type: 'main', name: "NEM NƯỚNG", price: 49000, img: "https://www.cleanipedia.com/images/5iwkm8ckyw6v/jLmMMPcXosJS3bzHN3VOM/00f5ae7421ecd5584451438559d86b50/Y2FjaC1sYW0tbmVtLW51b25nLmpwZw/1200w/m%E1%BB%99t-%C4%91%C4%A9a-th%E1%BB%A9c-%C4%83n-vi%E1%BB%87t-nam-v%E1%BB%9Bi-ch%E1%BA%A3-gi%C3%B2%2C-nem-n%C6%B0%E1%BB%9Bng%2C-rau-s%E1%BB%91ng-v%C3%A0-n%C6%B0%E1%BB%9Bc-ch%E1%BA%A5m..jpg" },
+           { id: 201, type: 'drink', name: "TRÀ ĐÀO CAM SẢ", price: 35000, img: "https://cdn-merchant.vinid.net/images/gallery/vinshop-seo/1749515439_cong-thuc-pha-tra-dao-cam-sa-3.jpg" },
+           { id: 202, type: 'drink', name: "CÀ PHÊ MUỐI", price: 30000, img: "https://cubes-asia.com/storage/blogs/2024-12/cach-lam-ca-phe-muoi-nguyen-lieu-cong-thuc-lam.jpg" },
+           { id: 203, type: 'drink', name: "NƯỚC ÉP CAM", price: 35000, img: "https://suckhoedoisong.qltns.mediacdn.vn/324455921873985536/2022/2/19/cach-lam-nuoc-cam-ep-ngon-va-thom-ket-hop-voi-le-va-gung-5-1645248090817401855254.jpg" },
+           { id: 204, type: 'drink', name: "NƯỚC ÉP DƯA HẤU", price: 35000, img: "https://product.hstatic.net/1000187248/product/nuoc-ep-dua-hau_88dc3c4c697742f4a7052c2a109ddd3e_grande.jpg" },
+           { id: 205, type: 'drink', name: "CHANH DÂY NHA ĐAM", price: 30000, img: "https://bizweb.dktcdn.net/100/021/355/products/tra-xanh-chanh-leo-lo-hoi-1-28c280fd-e6ed-4ec5-864c-fe8e85175ae3.jpg?v=1570164190110" },
+           { id: 206, type: 'drink', name: "NƯỚC DỪA", price: 35000, img: "https://production-cdn.pharmacity.io/digital/original/plain/blog/pcPvNHnI-nuoc_dua_dun_nong_co_tac_dung_gi_nhung_luu_y_quan_trong_khi_su_dung_nuoc_dua_1_753c316f21.jpg" },
+           { id: 207, type: 'drink', name: "BIA TƯƠI", price: 35000, img: "https://thegioibiatuoi.com/wp-content/uploads/2025/11/bia-tuoi-bay-lager.jpg" },
+           { id: 208, type: 'drink', name: "SINH TỐ BƠ", price: 35000, img: "https://elmich.vn/wp-content/uploads/2024/01/Sinh-to-bo-6.jpg" },
+           { id: 209, type: 'drink', name: "COCACOLA", price: 15000, img: "https://www.coca-cola.com/content/dam/onexp/vn/vi/brands/coca-cola/vn-coca-cola-zero.png" },
+           { id: 210, type: 'drink', name: "SPRITE", price: 15000, img: "https://maltco.vn/media/catalog/product/cache/e23dd0f7bd71f6870bbc835b86d5d59e/s/p/sprite_softdrink.webp" },
+           { id: 301, type: 'dessert', name: "CHÈ KHÚC BẠCH", price: 25000, img: "https://cdn.tgdd.vn/2021/10/CookDish/che-khuc-bach-la-gi-che-khuc-bach-lam-tu-gi-nguyen-lieu-lam-avt-1200x676.jpg" },
+           { id: 302, type: 'dessert', name: "CHÈ DỪA DẦM", price: 25000, img: "https://cdn.mediamart.vn/images/news/vao-bp-hc-cach-nu-che-da-dm-hi-phong-ngon-ngt-ngay_028720f1.jpg" },
+           { id: 303, type: 'dessert', name: "HOA QUẢ THEO MÙA", price: 35000, img: "https://file.hstatic.net/200000333181/article/264191096-h-696x476_9b7c0dacaa144901b0f236dd8b023b0d.jpg" },
+           { id: 304, type: 'dessert', name: "SỮA CHUA NẾP CẨM ", price: 20000, img: "https://beptruong.edu.vn/wp-content/uploads/2019/03/sua-chua-nep-cam.jpg" },
+           { id: 305, type: 'dessert', name: "KEM TƯƠI", price: 20000, img: "https://dungcunhahang.com/wp-content/uploads/2025/01/Ly-Kem-800x800-3.png" },
+           { id: 306, type: 'dessert', name: "PANNA COTTA", price: 20000, img: "https://cdn.jwplayer.com/v2/media/XUqZDSbG/thumbnails/HNylojyg.jpg?width=1280" },
+           { id: 307, type: 'dessert', name: "BÁNH FLAN", price: 25000, img: "https://www.huongnghiepaau.com/wp-content/uploads/2019/04/cach-lam-banh-flan-pho-mai.jpg" },
+           { id: 308, type: 'dessert', name: "RAU CAU", price: 20000, img: "https://cdn2.fptshop.com.vn/unsafe/1920x0/filters:format(webp):quality(75)/2024_1_18_638412156621577284_cach-nau-rau-cau.jpg" },
+           { id: 309, type: 'dessert', name: "BÁNH PÍA", price: 25000, img: "https://banhbaominh.com/wp-content/uploads/2023/08/kham-pha-huong-vi-banh-pia-soc-trang-banh-pia-soc-trang1.jpeg" },
+           { id: 310, type: 'dessert', name: "BÁNH ÍT TRẦN", price: 25000, img: "https://cdn.eva.vn/upload/4-2021/images/2021-10-21/image8-1634782289-902-width650height460.jpg" },
+       ];
+       let cart = [];
+       let timerInterval;
+       let currentCategory = 'main';
 
-    const BANK_ID = "MB";
-    const ACCOUNT_NO = "0862976818";
-    const ACCOUNT_NAME = "NGUYEN QUOC BAO";
-    const menuData = [
-        { id: 101, type: 'main', name: "BÚN BÒ HUẾ", price: 69000, img: "https://kinhdoamthuc.com/wp-content/uploads/2023/07/bun-bo-hue-1_1628650972.jpg" },
-        { id: 102, type: 'main', name: "CƠM TẤM SƯỜN", price: 69000, img: "https://cafefcdn.com/203337114487263232/2022/12/7/photo-9-1670398141900764774990.jpg" },
-        { id: 103, type: 'main', name: "PHỞ HÀ NỘI", price: 59000, img: "https://static.vinwonders.com/production/optimize_pho-ha-noi-2.jpg" },
-        { id: 104, type: 'main', name: "BÁNH XÈO", price: 49000, img: "https://www.huongnghiepaau.com/wp-content/uploads/2017/02/cach-lam-banh-xeo-mien-trung.jpg" },
-        { id: 105, type: 'main', name: "GỎI CUỐN TÔM", price: 59000, img: "https://i.ytimg.com/vi/lAOHvUGfOdM/sddefault.jpg" },
-        { id: 106, type: 'main', name: "BÚN ĐẬU MẮM TÔM", price: 59000, img: "https://i-giadinh.vnecdn.net/2025/05/16/Bun-dau-mam-tom-6-vnexpress-17-9082-8722-1747388531.jpg" },
-        { id: 107, type: 'main', name: "BÁNH MÌ", price: 25000, img: "https://cdn-i2.congthuong.vn/stores/news_dataimages/2024/032024/16/09/top-1-mon-sandwich-ngon-nhat-the-gioi-goi-ten-banh-my-viet-nam1710498007-182420240316092132.jpg?rt=20240316092204" },
-        { id: 108, type: 'main', name: "BÚN CHẢ", price: 39000, img: "https://cooponline.vn/tin-tuc/wp-content/uploads/2025/10/hoc-cach-lam-bun-cha-mien-bac-chuan-ha-noi-tai-nha.png" },
-        { id: 110, type: 'main', name: "NEM NƯỚNG", price: 49000, img: "https://www.cleanipedia.com/images/5iwkm8ckyw6v/jLmMMPcXosJS3bzHN3VOM/00f5ae7421ecd5584451438559d86b50/Y2FjaC1sYW0tbmVtLW51b25nLmpwZw/1200w/m%E1%BB%99t-%C4%91%C4%A9a-th%E1%BB%A9c-%C4%83n-vi%E1%BB%87t-nam-v%E1%BB%9Bi-ch%E1%BA%A3-gi%C3%B2%2C-nem-n%C6%B0%E1%BB%9Bng%2C-rau-s%E1%BB%9IC-v%C3%A0-n%C6%B0%E1%BB%9Bc-ch%E1%BA%A5m..jpg" },
-        { id: 201, type: 'drink', name: "TRÀ ĐÀO CAM SẢ", price: 35000, img: "https://cdn-merchant.vinid.net/images/gallery/vinshop-seo/1749515439_cong-thuc-pha-tra-dao-cam-sa-3.jpg" },
-        { id: 202, type: 'drink', name: "CÀ PHÊ MUỐI", price: 30000, img: "https://cubes-asia.com/storage/blogs/2024-12/cach-lam-ca-phe-muoi-nguyen-lieu-cong-thuc-lam.jpg" },
-        { id: 203, type: 'drink', name: "NƯỚC ÉP CAM", price: 35000, img: "https://suckhoedoisong.qltns.mediacdn.vn/324455921873985536/2022/2/19/cach-lam-nuoc-cam-ep-ngon-va-thom-ket-hop-voi-le-va-gung-5-1645248090817401855254.jpg" },
-        { id: 204, type: 'drink', name: "NƯỚC ÉP DƯA HẤU", price: 35000, img: "https://product.hstatic.net/1000187248/product/nuoc-ep-dua-hau_88dc3c4c697742f4a7052c2a109ddd3e_grande.jpg" },
-        { id: 205, type: 'drink', name: "CHANH DÂY NHA ĐAM", price: 30000, img: "https://bizweb.dktcdn.net/100/021/355/products/tra-xanh-chanh-leo-lo-hoi-1-28c280fd-e6ed-4ec5-864c-fe8e85175ae3.jpg?v=1570164190110" },
-        { id: 206, type: 'drink', name: "NƯỚC DỪA", price: 35000, img: "https://production-cdn.pharmacity.io/digital/original/plain/blog/pcPvNHnI-nuoc_dua_dun_nong_co_tac_dung_gi_nhung_luu_y_quan_trong_khi_su_dung_nuoc_dua_1_753c316f21.jpg" },
-        { id: 207, type: 'drink', name: "BIA TƯƠI", price: 35000, img: "https://thegioibiatuoi.com/wp-content/uploads/2025/11/bia-tuoi-bay-lager.jpg" },
-        { id: 208, type: 'drink', name: "SINH TỐ BƠ", price: 35000, img: "https://elmich.vn/wp-content/uploads/2024/01/Sinh-to-bo-6.jpg" },
-        { id: 209, type: 'drink', name: "COCACOLA", price: 15000, img: "https://www.coca-cola.com/content/dam/onexp/vn/vi/brands/coca-cola/vn-coca-cola-zero.png" },
-        { id: 210, type: 'drink', name: "SPRITE", price: 15000, img: "https://maltco.vn/media/catalog/product/cache/e23dd0f7bd71f6870bbc835b86d5d59e/s/p/sprite_softdrink.webp" },
-        { id: 301, type: 'dessert', name: "CHÈ KHÚC BẠCH", price: 25000, img: "https://cdn.tgdd.vn/2021/10/CookDish/che-khuc-bach-la-gi-che-khuc-bach-lam-tu-gi-nguyen-lieu-lam-avt-1200x676.jpg" },
-        { id: 302, type: 'dessert', name: "CHÈ DỪA DẦM", price: 25000, img: "https://cdn.mediamart.vn/images/news/vao-bp-hc-cach-nu-che-da-dm-hi-phong-ngon-ngt-ngay_028720f1.jpg" },
-        { id: 303, type: 'dessert', name: "HOA QUẢ THEO MÙA", price: 35000, img: "https://file.hstatic.net/200000333181/article/264191096-h-696x476_9b7c0dacaa144901b0f236dd8b023b0d.jpg" },
-        { id: 304, type: 'dessert', name: "SỮA CHUA NẾP CẨM ", price: 20000, img: "https://beptruong.edu.vn/wp-content/uploads/2019/03/sua-chua-nep-cam.jpg" },
-        { id: 305, type: 'dessert', name: "KEM TƯƠI", price: 20000, img: "https://dungcunhahang.com/wp-content/uploads/2025/01/Ly-Kem-800x800-3.png" },
-        { id: 306, type: 'dessert', name: "PANNA COTTA", price: 20000, img: "https://cdn.jwplayer.com/v2/media/XUqZDSbG/thumbnails/HNylojyg.jpg?width=1280" },
-        { id: 307, type: 'dessert', name: "BÁNH FLAN", price: 25000, img: "https://www.huongnghiepaau.com/wp-content/uploads/2019/04/cach-lam-banh-flan-pho-mai.jpg" },
-        { id: 308, type: 'dessert', name: "RAU CAU", price: 20000, img: "https://cdn2.fptshop.com.vn/unsafe/1920x0/filters:format(webp):quality(75)/2024_1_18_638412156621577284_cach-nau-rau-cau.jpg" },
-        { id: 309, type: 'dessert', name: "BÁNH PÍA", price: 25000, img: "https://banhbaominh.com/wp-content/uploads/2023/08/kham-pha-huong-vi-banh-pia-soc-trang-banh-pia-soc-trang1.jpeg" },
-        { id: 310, type: 'dessert', name: "BÁNH ÍT TRẦN", price: 25000, img: "https://cdn.eva.vn/upload/4-2021/images/2021-10-21/image8-1634782289-902-width650height460.jpg" },
-    ];
-    let cart = [];
-    let timerInterval;
-    let currentCategory = 'main';
 
-    // ĐỒNG BỘ QUA API (PUT)
-    function dongBoFirebaseNgam() {
-        const noteChung = document.getElementById('global-note') ? document.getElementById('global-note').value : "";
-        let totalAmount = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
-        
-        const dataToSync = {
-            cart: cart,
-            totalPrice: totalAmount,
-            note: noteChung
-        };
+       function toggleDark() { document.body.classList.toggle("dark"); }
+       function showToast(msg) {
+           const container = document.getElementById('toast-container');
+           const t = document.createElement('div');
+           t.className = 'toast'; t.innerText = msg;
+           container.appendChild(t);
+           setTimeout(() => { t.style.opacity = '0'; setTimeout(() => t.remove(), 500); }, 2000);
+       }
+       function filterMenu(type, element) {
+           currentCategory = type;
+           document.getElementById('search-input').value = "";
+           document.querySelectorAll('.top-menu-item').forEach(item => item.classList.remove('active'));
+           if (element) element.classList.add('active');
+           renderMenu(menuData.filter(m => m.type === type));
+       }
+       function searchFood(val) {
+           const keyword = val.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "").replace(/đ/g, "d");
+           if (!keyword) return filterMenu(currentCategory, document.querySelector(`.top-menu-item[onclick*='${currentCategory}']`));
+           document.querySelectorAll('.top-menu-item').forEach(item => item.classList.remove('active'));
+           const filtered = menuData.filter(item => item.name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "").replace(/đ/g, "d").includes(keyword));
+           renderMenu(filtered);
+       }
+       function renderMenu(items) {
+           const grid = document.getElementById('menu-grid');
+           if (items.length === 0) {
+               grid.innerHTML = `<p style="grid-column: 1/-1; text-align:center; padding: 20px; color:#999;">Không tìm thấy món ăn phù hợp.</p>`;
+               return;
+           }
+           grid.innerHTML = items.map(item => `
+           <div class="article-card">
+               <img src="${item.img}" class="img" onerror="this.src='https://via.placeholder.com/150?text=Food'">
+               <h4 class="article-title">${item.name}</h4>
+               <p class="article-desc">${item.price.toLocaleString()} VND</p>
+               <a href="javascript:void(0)" class="btn-more" onclick="addToCart(${item.id})">THÊM MÓN</a>
+           </div>
+       `).join('');
+       }
+       function addToCart(id) {
+           const product = menuData.find(p => p.id === id);
+           const inCart = cart.find(c => c.id === id);
+           if (inCart) inCart.qty++; else cart.push({ ...product, qty: 1 });
+           renderCart();
+           showToast(`Đã thêm ${product.name}`);
+       }
+       function updateQty(id, change) {
+           const item = cart.find(i => i.id === id);
+           if (item) {
+               item.qty += change;
+               if (item.qty <= 0) cart = cart.filter(i => i.id !== id);
+               renderCart();
+           }
+       }
+       function clearCart() {
+           if (confirm("Bạn muốn xóa toàn bộ giỏ hàng?")) {
+               cart = [];
+               renderCart();
+           }
+       }
+       function renderCart() {
+           const list = document.getElementById('cart-list');
+           let total = 0;
+           if (cart.length === 0) {
+               list.innerHTML = `<p style="text-align:center; color:#999; font-size:14px; padding: 20px;">Giỏ hàng của bạn đang trống</p>`;
+           } else {
+               list.innerHTML = cart.map(item => {
+                   total += item.price * item.qty;
+                   return `<div class="item">
+                   <img src="${item.img}" class="item-img" onerror="this.src='https://via.placeholder.com/50'">
+                   <div style="flex:1">
+                       <div style="font-weight:bold; font-size:13px;">${item.name}</div>
+                       <input type="text" style="width: 100%; margin-top: 5px; padding: 4px; font-size: 11px; border: 1px solid #eee; border-radius: 4px; outline: none; color: #d35400; font-family: inherit;" placeholder="Ghi chú (VD: Muốn mang về X phần; ít cay...)" oninput="updateItemNote(${item.id}, this.value)" value="${item.note || ''}">
+                       <div style="display:flex; align-items:center; gap:8px; margin-top:3px;">
+                           <button class="btn-qty" onclick="updateQty(${item.id}, -1)">-</button>
+                           <span>${item.qty}</span>
+                           <button class="btn-qty" onclick="updateQty(${item.id}, 1)">+</button>
+                       </div>
+                   </div>
+                   <b style="font-size:13px;">${(item.price * item.qty).toLocaleString()}VND</b>
+               </div>`;
+               }).join('');
+           }
+           document.getElementById('final-total').innerText = total.toLocaleString() + 'VND';
+           document.getElementById('count-items').innerText = cart.reduce((sum, item) => sum + item.qty, 0);
+       }
+       function updateItemNote(id, val) {
+           const item = cart.find(i => i.id === id);
+           if (item) item.note = val;
+       }
+       function showInvoice() {
+           if (cart.length === 0) return alert("Hãy chọn món trước khi thanh toán nhé!");
+           document.getElementById('mobile-sidebar').classList.remove('active');
+           const invoiceModal = document.getElementById('invoice-modal');
+           let total = 0;
+           let itemsHtml = cart.map(item => {
+               total += item.price * item.qty;
+               const noteRieng = item.note ? ` (${item.note})` : "";
+               return `<tr><td>${item.name}${noteRieng}</td><td class="col-price">${item.price / 1000}k</td><td class="col-qty">${item.qty}</td><td class="col-total">${(item.price * item.qty).toLocaleString()}</td></tr>`;
+           }).join('');
+           const noteChung = document.getElementById('global-note').value.trim();
+           if (noteChung) itemsHtml += `<tr><td colspan="4" style="font-size:11px; color:gray; padding-top:5px;">Ghi chú: ${noteChung}</td></tr>`;
+           document.getElementById('invoice-items').innerHTML = itemsHtml;
+           document.getElementById('invoice-total').innerText = total.toLocaleString() + " VND";
+           document.getElementById('acc-name').innerText = ACCOUNT_NAME;
+           invoiceModal.style.display = 'flex';
+           const qrImg = document.getElementById('qr-code');
+           const qrUrl = `https://img.vietqr.io/image/${BANK_ID}-${ACCOUNT_NO}-compact2.png?amount=${total}&addInfo=Thanh toan don hang&accountName=${encodeURIComponent(ACCOUNT_NAME)}`;
+           document.getElementById('qr-loading').style.display = 'block';
+           qrImg.style.display = 'none';
+           qrImg.src = qrUrl;
+           qrImg.onload = () => {
+               document.getElementById('qr-loading').style.display = 'none';
+               qrImg.style.display = 'block';
+               startTimer(300);
+           };
+       }
+       function startTimer(t) {
+           clearInterval(timerInterval);
+           const display = document.getElementById('timer-display');
+           timerInterval = setInterval(() => {
+               let m = Math.floor(t / 60), s = t % 60;
+               display.innerText = `Mã QR hết hạn sau: ${m}:${s < 10 ? '0' : ''}${s}`;
+               if (--t < 0) { clearInterval(timerInterval); display.innerText = "Mã QR đã hết hạn."; }
+           }, 1000);
+       }
+       function closeInvoice() {
+           document.getElementById('invoice-modal').style.display = 'none';
+           document.getElementById('orderModal').style.display = 'flex';
+       }
+       function closeOrderModal() {
+           document.getElementById('orderModal').style.display = 'none';
+           cart = [];
+           renderCart();
+           clearInterval(timerInterval);
+           window.scrollTo({ top: 0, behavior: 'smooth' });
+       }
+       function toggleMobileCart() {
+           if (window.innerWidth <= 768) document.getElementById('mobile-sidebar').classList.toggle('active');
+       }
+       function callStaff() {
+           if (confirm("Bạn cần gọi nhân viên phục vụ?")) {
+               showToast("🔔 Đã gửi yêu cầu! Nhân viên sẽ đến ngay.");
+           }
+       }
 
-        // Đồng thời cập nhật qua SDK cũ để giữ tính năng
-        serverDatabase.ref('tables/ban_' + MA_SO_BAN).set(dataToSync);
 
-        // Chạy thêm đồng bộ API qua fetch
-        fetch(`${FIREBASE_BASE_URL}/tables/ban_${MA_SO_BAN}.json`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(dataToSync)
-        })
-        .catch(error => console.error('Lỗi API đồng bộ:', error));
-    }
 
-    window.onload = function() {
-        const params = new URLSearchParams(window.location.search);
-        const tableParam = params.get("Table") || params.get("table"); 
-        
-        if (tableParam) {
-            MA_SO_BAN = tableParam;
-            document.getElementById('table-info').innerText = MA_SO_BAN === "mv" ? "BÀN MANG VỀ" : "Bàn " + MA_SO_BAN;
-        } else {
-            document.getElementById('table-info').innerText = "";
-        }
-        
-        const defaultItems = menuData.filter(m => m.type === 'main');
-        renderMenu(defaultItems);
-    };
 
-    function toggleDark() { document.body.classList.toggle("dark"); }
-    
-    function showToast(msg) {
-        const container = document.getElementById('toast-container');
-        const t = document.createElement('div');
-        t.className = 'toast'; t.innerText = msg;
-        container.appendChild(t);
-        setTimeout(() => { t.style.opacity = '0'; setTimeout(() => t.remove(), 500); }, 2000);
-    }
-    
-    function filterMenu(type, element) {
-        currentCategory = type;
-        document.getElementById('search-input').value = "";
-        document.querySelectorAll('.top-menu-item').forEach(item => item.classList.remove('active'));
-        if (element) element.classList.add('active');
-        renderMenu(menuData.filter(m => m.type === type));
-    }
-    
-    function searchFood(val) {
-        const keyword = val.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "").replace(/đ/g, "d");
-        if (!keyword) return filterMenu(currentCategory, document.querySelector(`.top-menu-item[onclick*='${currentCategory}']`));
-        document.querySelectorAll('.top-menu-item').forEach(item => item.classList.remove('active'));
-        const filtered = menuData.filter(item => item.name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "").replace(/đ/g, "d").includes(keyword));
-        renderMenu(filtered);
-    }
-    
-    function renderMenu(items) {
-        const grid = document.getElementById('menu-grid');
-        if (items.length === 0) {
-            grid.innerHTML = `<p style="grid-column: 1/-1; text-align:center; padding: 20px; color:#999;">Không tìm thấy món ăn phù hợp.</p>`;
-            return;
-        }
-        grid.innerHTML = items.map(item => `
-            <div class="article-card">
-                <img src="${item.img}" class="img" onerror="this.src='https://via.placeholder.com/150?text=Food'">
-                <h4 class="article-title">${item.name}</h4>
-                <p class="article-desc">${item.price.toLocaleString()} VND</p>
-                <a href="javascript:void(0)" class="btn-more" onclick="addToCart(${item.id})">THÊM MÓN</a>
-            </div>
-        `).join('');
-    }
-    
-    function addToCart(id) {
-        const product = menuData.find(p => p.id === id);
-        const inCart = cart.find(c => c.id === id);
-        if (inCart) inCart.qty++; else cart.push({ ...product, qty: 1 });
-        renderCart();
-        dongBoFirebaseNgam();
-        showToast(`Đã thêm ${product.name}`);
-    }
-    
-    function updateQty(id, change) {
-        const item = cart.find(i => i.id === id);
-        if (item) {
-            item.qty += change;
-            if (item.qty <= 0) cart = cart.filter(i => i.id !== id);
-            renderCart();
-            dongBoFirebaseNgam();
-        }
-    }
 
-    function updateItemNote(id, noteValue) {
-        const item = cart.find(i => i.id === id);
-        if (item) {
-            item.note = noteValue;
-            dongBoFirebaseNgam(); 
-        }
-    }
-    
-    function clearCart() {
-        if (confirm("Bạn muốn xóa toàn bộ giỏ hàng?")) {
-            cart = [];
-            renderCart();
-            // SDK cũ
-            serverDatabase.ref('tables/ban_' + MA_SO_BAN).remove();
-            // API mới
-            fetch(`${FIREBASE_BASE_URL}/tables/ban_${MA_SO_BAN}.json`, { method: 'DELETE' })
-            .catch(error => console.error('Lỗi API xóa:', error));
-        }
-    }
-    
-    function renderCart() {
-        const list = document.getElementById('cart-list');
-        let total = 0;
-        if (cart.length === 0) {
-            list.innerHTML = `<p style="text-align:center; color:#999; font-size:14px; padding: 20px;">Giỏ hàng của bạn đang trống</p>`;
-        } else {
-            list.innerHTML = cart.map(item => {
-                total += item.price * item.qty;
-                return `<div class="item">
-                    <img src="${item.img}" class="item-img" onerror="this.src='https://via.placeholder.com/50'">
-                    <div style="flex:1">
-                        <div style="font-weight:bold; font-size:13px;">${item.name}</div>
-                        <input type="text" style="width: 100%; margin-top: 5px; padding: 4px; font-size: 11px; border: 1px solid #eee; border-radius: 4px; outline: none; color: #d35400; font-family: inherit;" 
-                        placeholder="Ghi chú món này..." oninput="updateItemNote(${item.id}, this.value)" value="${item.note || ''}">
-                        <div style="display:flex; align-items:center; gap:8px; margin-top:3px;">
-                            <button class="btn-qty" onclick="updateQty(${item.id}, -1)">-</button>
-                            <span>${item.qty}</span>
-                            <button class="btn-qty" onclick="updateQty(${item.id}, 1)">+</button>
-                        </div>
-                    </div>
-                </div>`;
-            }).join('');
-        }
-        document.getElementById('count-items').innerText = cart.reduce((s, i) => s + i.qty, 0);
-        document.getElementById('final-total').innerText = total.toLocaleString() + " VND";
-    }
 
-    function toggleMobileCart() {
-        if (window.innerWidth <= 768) {
-            document.getElementById('mobile-sidebar').classList.toggle('active');
-        }
-    }
-    
-    function showInvoice() {
-        if(cart.length === 0) { alert("Giỏ hàng của bạn đang trống!"); return; }
-        document.getElementById('invoice-modal').style.display = 'flex';
-        const tbody = document.getElementById('invoice-items');
-        let total = 0;
-        tbody.innerHTML = cart.map(item => {
-            let t = item.price * item.qty; total += t;
-            return `<tr>
-                <td class="col-name">${item.name} ${item.note ? '<br><small style="color:red">('+item.note+')</small>':''}</td>
-                <td class="col-price">${item.price.toLocaleString()}</td>
-                <td class="col-qty">${item.qty}</td>
-                <td class="col-total">${t.toLocaleString()}</td>
-            </tr>`;
-        }).join('');
-        document.getElementById('invoice-total').innerText = total.toLocaleString() + " VND";
-        document.getElementById('acc-name').innerText = ACCOUNT_NAME;
-        
-        const qrImg = document.getElementById('qr-code');
-        const qrLoading = document.getElementById('qr-loading');
-        qrImg.style.display = 'none'; qrLoading.style.display = 'block';
-        
-        const moTaChuyenKhoan = encodeURIComponent("BAN " + MA_SO_BAN + " THANH TOAN");
-        qrImg.src = `https://img.vietqr.io/image/${BANK_ID}-${ACCOUNT_NO}-compact.png?amount=${total}&addInfo=${moTaChuyenKhoan}&accountName=${encodeURIComponent(ACCOUNT_NAME)}`;
-        qrImg.onload = function() { qrImg.style.display = 'block'; qrLoading.style.display = 'none'; };
-    }
-    
-    function closeInvoice() {
-        document.getElementById('invoice-modal').style.display = 'none';
-        document.getElementById('orderModal').style.display = 'flex';
-    }
-    
-    function closeOrderModal() {
-        document.getElementById('orderModal').style.display = 'none';
-        cart = []; renderCart();
-        // SDK cũ
-        serverDatabase.ref('tables/ban_' + MA_SO_BAN).remove();
-        // API mới
-        fetch(`${FIREBASE_BASE_URL}/tables/ban_${MA_SO_BAN}.json`, { method: 'DELETE' })
-        .catch(error => console.error('Lỗi API xóa khi tất toán:', error));
-    }
-    
-    function callStaff() {
-        // SDK cũ
-        serverDatabase.ref('calls/ban_' + MA_SO_BAN).set({
-            time: new Date().toLocaleTimeString(),
-            status: "Đang đợi"
-        });
-        // API mới
-        const callData = {
-            time: new Date().toLocaleTimeString(),
-            status: "Đang đợi"
-        };
-        fetch(`${FIREBASE_BASE_URL}/calls/ban_${MA_SO_BAN}.json`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(callData)
-        })
-        .then(() => showToast("🔔 Đang gọi phục vụ bàn " + MA_SO_BAN))
-        .catch(error => console.error('Lỗi API gọi phục vụ:', error));
-    }
-</script>
-
+       window.addEventListener('resize', setSliderPosition);
+       renderMenu(menuData.filter(m => m.type === 'main'));
+       renderCart();
+       window.onload = function () {
+           const params = new URLSearchParams(window.location.search);
+           tableNo = params.get("Table");
+           if (tableNo) document.getElementById("table-info").innerText = " BÀN " + tableNo;
+           filterMenu('main', document.querySelector('.top-menu-item'));
+       };
+   </script>
 </body>
 
+
+
+
 </html>
+
+
+
+
+
+
+
+
 
 
 
