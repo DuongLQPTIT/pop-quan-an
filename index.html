@@ -1151,14 +1151,22 @@
 
 
 
-       window.addEventListener('resize', setSliderPosition);
-       renderMenu(menuData.filter(m => m.type === 'main'));
-       renderCart();
+     // ĐÃ SỬA: Xóa bỏ dòng gán sự kiện resize lỗi của hàm setSliderPosition không tồn tại
+       
        window.onload = function () {
-           const params = new URLSearchParams(window.location.search);
-           tableNo = params.get("Table");
-           if (tableNo) document.getElementById("table-info").innerText = " BÀN " + tableNo;
+           // 1. Chạy các hàm khởi tạo giao diện trước
            filterMenu('main', document.querySelector('.top-menu-item'));
+           renderCart();
+
+           // 2. Xử lý lấy số bàn từ URL thông minh (chấp nhận cả ?table= và ?Table=)
+           const params = new URLSearchParams(window.location.search);
+           let tableNo = params.get("table") || params.get("Table");
+           
+           if (tableNo) {
+               document.getElementById("table-info").innerText = "BÀN: " + tableNo;
+           } else {
+               document.getElementById("table-info").innerText = "MANG VỀ";
+           }
        };
    </script>
 </body>
@@ -1167,6 +1175,11 @@
 
 
 </html>
+
+
+
+
+
 
 
 
